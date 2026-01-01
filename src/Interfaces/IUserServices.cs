@@ -4,6 +4,6 @@ namespace AuthService.src.Interfaces
 {
     public interface IUserServices
     {
-        Task<AuthResponseDTO> AuthUserAsync(AuthRequestDTO user);
+        Task<UserServiceAuthDTO> AuthUserAsync(AuthRequestDTO user);
     }
 }

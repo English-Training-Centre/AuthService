@@ -10,7 +10,7 @@ namespace AuthService.src.Services
         private readonly HttpClient _http = http;
         private readonly ILogger<UserServices> _logger = logger;
 
-        public async Task<AuthResponseDTO> AuthUserAsync(AuthRequestDTO request)
+        public async Task<UserServiceAuthDTO> AuthUserAsync(AuthRequestDTO request)
         {
             ArgumentNullException.ThrowIfNull(request);
 
@@ -23,7 +23,7 @@ namespace AuthService.src.Services
                     throw new HttpRequestException($"Falha na autenticação: {response.StatusCode}");
                 }
 
-                return await response.Content.ReadFromJsonAsync<AuthResponseDTO>()
+                return await response.Content.ReadFromJsonAsync<UserServiceAuthDTO>()
                     ?? throw new InvalidOperationException("Resposta inesperada do servidor.");
             }
             catch (HttpRequestException ex) when (ex.InnerException is SocketException)

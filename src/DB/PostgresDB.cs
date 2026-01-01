@@ -154,7 +154,7 @@ namespace AuthService.src.DB
         {
             var host     = GetRequired("DB_PTGR_HOST");
             var port     = GetRequired("DB_PTGR_PORT");
-            var database = "etc_db_user_service";
+            var database = "etc_db_auth_service";
             var username = GetRequired("DB_PTGR_USER");
             var password = GetRequired("DB_PTGR_PASS");
 

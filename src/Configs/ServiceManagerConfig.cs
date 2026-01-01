@@ -1,6 +1,7 @@
 using System.Threading.RateLimiting;
 using AuthService.src.DB;
 using AuthService.src.Interfaces;
+using AuthService.src.Repositories;
 using AuthService.src.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -42,9 +43,12 @@ namespace AuthService.src.Configs
 
                 service.AddHttpClient<IUserServices, UserServices>(client =>
                 {
-                    client.BaseAddress = new Uri("http://localhost:5116/");
+                    client.BaseAddress = new Uri(configuration["ServicesUrl:UserService"] ?? "http://localhost:5116/");
                     client.Timeout = TimeSpan.FromSeconds(5);
                 });
+
+                service.AddScoped<IPostgresDbData, PostgresDB>();
+                service.AddScoped<IAuthRepository, AuthRepository>();
 
                 // Rate limitting: Sliding Windows
                 service.AddRateLimiter(op =>
