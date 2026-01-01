@@ -53,61 +53,75 @@ namespace AuthService.src.Configs
                 // Rate limitting: Sliding Windows
                 service.AddRateLimiter(op =>
                 {
-                    // 1. Global: 100 requests in any 60-second window (per user or IP)
+                    // --- Global por IP (opcional: pode virar policy também)
                     op.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
                     {
-                        var ip = httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown-ip";
-
+                        var ip = httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
                         return RateLimitPartition.GetSlidingWindowLimiter(
                             partitionKey: ip,
                             factory: _ => new SlidingWindowRateLimiterOptions
                             {
-                                PermitLimit = 300, //Each IP: 300 req / 60 sec
+                                PermitLimit = 300,
                                 Window = TimeSpan.FromSeconds(60),
                                 SegmentsPerWindow = 6,
                                 AutoReplenishment = true
-                            }
-                        );
+                            });
                     });
 
-                    // 2. Login Limit - Per Username (or IP if anonymous)
-                    op.AddPolicy("SignInPolicy", httpContext =>
+                    // --- Policy: Limite de tentativas de login por IP
+                    op.AddPolicy("LimitSignIn", httpContext =>
                     {
-                        string ip = httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
-
+                        var ip = httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
                         return RateLimitPartition.GetSlidingWindowLimiter(
-                            partitionKey: $"sigin-{ip}",
+                            partitionKey: $"login-{ip}",
+                            factory: _ => new SlidingWindowRateLimiterOptions
+                            {
+                                PermitLimit = 15,
+                                Window = TimeSpan.FromSeconds(30),
+                                SegmentsPerWindow = 6,
+                                AutoReplenishment = true,
+                                QueueLimit = 0
+                            });
+                    });
+
+                    // --- Policy: Limite de refresh token por IP
+                    op.AddPolicy("LimitRefreshToken", httpContext =>
+                    {
+                        var ip = httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+                        return RateLimitPartition.GetSlidingWindowLimiter(
+                            partitionKey: $"refresh-{ip}",
                             factory: _ => new SlidingWindowRateLimiterOptions
                             {
                                 PermitLimit = 5,
-                                Window = TimeSpan.FromSeconds(60),
-                                SegmentsPerWindow = 6,
+                                Window = TimeSpan.FromMinutes(1),
+                                SegmentsPerWindow = 10,
                                 AutoReplenishment = true,
-                                QueueLimit = 0,
-                                QueueProcessingOrder = QueueProcessingOrder.OldestFirst                                
-                            }
-                        );                        
+                                QueueLimit = 0
+                            });
                     });
 
-                    // 3. Failed Response Handling
+                    // --- Resposta personalizada quando rate limited
                     op.OnRejected = async (context, token) =>
                     {
                         context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
-
+                        
                         if (context.Lease.TryGetMetadata(MetadataName.RetryAfter, out var retryAfter))
                         {
-                            context.HttpContext.Response.Headers.RetryAfter = retryAfter.TotalSeconds.ToString();
-                            await context.HttpContext.Response.WriteAsync($"Too many requests. Retry in {retryAfter.TotalSeconds:F0} seconds.", token);
+                            context.HttpContext.Response.Headers.RetryAfter = retryAfter.TotalSeconds.ToString("F0");
+                            await context.HttpContext.Response.WriteAsync(
+                                $"Too many requests. Try again in {retryAfter.TotalSeconds:F0} seconds.", token);
                         }
                         else
                         {
-                            await context.HttpContext.Response.WriteAsync("Too many requests.", token);
+                            await context.HttpContext.Response.WriteAsync("Too many requests. Please slow down.", token);
                         }
 
-                        // Log abuse
                         var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
-                        logger.LogWarning("Rate limited: {IP} on {Path} : ", context.HttpContext.Connection.RemoteIpAddress, context.HttpContext.Request.Path);
-                    };                    
+                        logger.LogWarning("Rate limited IP: {Ip} | Path: {Path} | Method: {Method}",
+                            context.HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+                            context.HttpContext.Request.Path,
+                            context.HttpContext.Request.Method);
+                    };
                 });
 
                 string? audience = configuration["JWTSettings:validAudience"];

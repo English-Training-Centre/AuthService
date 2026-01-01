@@ -49,6 +49,25 @@ namespace AuthService.src.DB
             });
         }
 
+        public async Task<T?> QueryFirstOrDefaultAsync<T>(
+            string sql,
+            object? parameters = null,
+            CancellationToken cancellationToken = default)
+        {
+            return await _retryPolicy.ExecuteAsync(async () =>
+            {
+                await using var conn = await _dataSource.OpenConnectionAsync(cancellationToken);
+
+                var result = await conn.QueryFirstOrDefaultAsync<T>(
+                    new CommandDefinition(
+                        sql,
+                        parameters,
+                        cancellationToken: cancellationToken));
+
+                return result;
+            });
+        }
+
         public async Task<int> ExecuteAsync(
             string sql,
             object? parameters = null,
