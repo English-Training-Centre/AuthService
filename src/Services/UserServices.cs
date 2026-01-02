@@ -16,7 +16,7 @@ namespace AuthService.src.Services
 
             try
             {
-                var response = await _http.PostAsJsonAsync("api/Users/v1/auth", auth);
+                var response = await _http.PostAsJsonAsync("api/v1/Users/auth", auth);
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -46,7 +46,7 @@ namespace AuthService.src.Services
 
             try
             {
-                response = await _http.GetAsync($"api/Users/v1/get-user/{id}");
+                response = await _http.GetAsync($"api/v1/Users/get-user/{id}");
             }
             catch (HttpRequestException ex) when (ex.InnerException is SocketException)
             {

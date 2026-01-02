@@ -52,3 +52,5 @@
 /home/ramadan/Documents/Projects/EnglishTrainingCenter/v3.0.2/etc-backend/AuthService/obj/Debug/net10.0/AuthService.pdb
 /home/ramadan/Documents/Projects/EnglishTrainingCenter/v3.0.2/etc-backend/AuthService/obj/Debug/net10.0/AuthService.genruntimeconfig.cache
 /home/ramadan/Documents/Projects/EnglishTrainingCenter/v3.0.2/etc-backend/AuthService/obj/Debug/net10.0/ref/AuthService.dll
+/home/ramadan/Documents/Projects/EnglishTrainingCenter/v3.0.2/etc-backend/AuthService/bin/Debug/net10.0/Microsoft.AspNetCore.Mvc.Versioning.dll
+/home/ramadan/Documents/Projects/EnglishTrainingCenter/v3.0.2/etc-backend/AuthService/bin/Debug/net10.0/Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer.dll

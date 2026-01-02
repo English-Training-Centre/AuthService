@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.RateLimiting;
 namespace AuthService.src.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]    
     public class AuthController (IAuthRepository authRepository, IUserServices userServices, ILogger<AuthController> logger) : ControllerBase, IAuthController
     {
         private readonly IAuthRepository _authRepository = authRepository;
@@ -15,7 +15,7 @@ namespace AuthService.src.Controllers
         private readonly ILogger<AuthController> _logger = logger;
 
         [EnableRateLimiting("LimitSignIn")]
-        [HttpPost("v1/sign-in")]  
+        [HttpPost("sign-in")]  
         public async Task<IActionResult> SignIn([FromBody] AuthRequestDTO auth)
         {
             if (!ModelState.IsValid) return BadRequest(ResponseDTO.Failure("Invalid input.") );
@@ -61,7 +61,7 @@ namespace AuthService.src.Controllers
         }
 
         [EnableRateLimiting("LimitRefreshToken")]
-        [HttpPost("v1/refresh")]
+        [HttpPost("refresh")]
         public async Task<IActionResult> RefreshToken()
         {
             try
@@ -111,7 +111,7 @@ namespace AuthService.src.Controllers
         }
 
         [Authorize]
-        [HttpPost("v1/sign-out")]
+        [HttpPost("sign-out")]
         public new async Task<IActionResult> SignOut()
         {
             try
@@ -139,7 +139,7 @@ namespace AuthService.src.Controllers
             }
         }
 
-        [HttpGet("v1/check-session")]
+        [HttpGet("check-session")]
         public async Task<IActionResult> CheckSession()
         {
             try

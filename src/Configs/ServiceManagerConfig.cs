@@ -5,6 +5,8 @@ using AuthService.src.Repositories;
 using AuthService.src.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Npgsql;
 
 namespace AuthService.src.Configs
@@ -17,6 +19,24 @@ namespace AuthService.src.Configs
 
             try
             {
+                // Versioning API
+                service.AddApiVersioning(opt =>
+                {
+                    opt.ReportApiVersions = true;
+                    opt.AssumeDefaultVersionWhenUnspecified = true;
+                    opt.DefaultApiVersion = new ApiVersion(1, 0);
+
+                    opt.ApiVersionReader = ApiVersionReader.Combine(
+                        new UrlSegmentApiVersionReader(),
+                        new HeaderApiVersionReader("api-version")
+                    );
+                });
+                service.AddVersionedApiExplorer(opt =>
+                {
+                    opt.GroupNameFormat = "'v'VVV";
+                    opt.SubstituteApiVersionInUrl = true;
+                });    
+                
                 service.AddOpenApi();
                 service.AddEndpointsApiExplorer();
                 service.AddSwaggerConfiguration();

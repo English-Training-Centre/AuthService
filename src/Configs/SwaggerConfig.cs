@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
@@ -6,7 +7,6 @@ namespace AuthService.src.Configs
 {
     public static class SwaggerConfig
     {
-        private const string apiVersion = "v1";
         private const string apiTitle = "ETC - Auth Services";
         private const string apiUrl = "https://github.com/English-Training-Centre";
 
@@ -15,7 +15,17 @@ namespace AuthService.src.Configs
             app.UseSwagger();
             app.UseSwaggerUI(op =>
             {
-                op.SwaggerEndpoint($"/swagger/{apiVersion}/swagger.json", $"{apiTitle} - {apiVersion}");
+                var provider = app.ApplicationServices
+                    .GetRequiredService<IApiVersionDescriptionProvider>();
+
+                foreach (var description in provider.ApiVersionDescriptions)
+                {
+                    op.SwaggerEndpoint(
+                        $"/swagger/{description.GroupName}/swagger.json",
+                        $"{apiTitle} {description.GroupName.ToUpperInvariant()}"
+                    );
+                }
+
                 op.RoutePrefix = string.Empty;
                 op.DocumentTitle = apiTitle;
                 op.DisplayRequestDuration();
@@ -30,31 +40,41 @@ namespace AuthService.src.Configs
         {
             service.AddSwaggerGen(op =>
             {
-                ConfigureSwaggerDoc(op);
+                using var sp = service.BuildServiceProvider();
+                var provider = sp.GetRequiredService<IApiVersionDescriptionProvider>();
+
+                ConfigureSwaggerDoc(op, provider);
                 ConfigureJWTAuthentication(op);
             });
         }
 
-        private static void ConfigureSwaggerDoc(SwaggerGenOptions op)
+        private static void ConfigureSwaggerDoc(
+            SwaggerGenOptions options,
+            IApiVersionDescriptionProvider provider)
         {
-            op.SwaggerDoc(apiVersion, new OpenApiInfo
+            foreach (var description in provider.ApiVersionDescriptions)
             {
-                Title = apiTitle,
-                Version = apiVersion,
-                Description = "English Training Centre",
-                TermsOfService = new Uri(apiUrl),
-                Contact = new OpenApiContact
+                options.SwaggerDoc(description.GroupName, new OpenApiInfo
                 {
-                    Name = "Ramadan Ismael",
-                    Email = "ramadan.ismael02@gmail.com",
-                    Url = new Uri(apiUrl)
-                },
-                License = new OpenApiLicense
-                {
-                    Name = "Apache 2.0",
-                    Url = new Uri("https://www.apache.org/licenses/LICENSE-2.0.html")
-                }
-            });
+                    Title = apiTitle,
+                    Version = description.ApiVersion.ToString(),
+                    Description = "English Training Centre",
+                    TermsOfService = new Uri(apiUrl),
+
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Ramadan Ismael",
+                        Email = "ramadan.ismael02@gmail.com",
+                        Url = new Uri(apiUrl)
+                    },
+
+                    License = new OpenApiLicense
+                    {
+                        Name = "Apache 2.0",
+                        Url = new Uri("https://www.apache.org/licenses/LICENSE-2.0.html")
+                    }
+                });
+            }
         }
 
         private static void ConfigureJWTAuthentication(SwaggerGenOptions op)
