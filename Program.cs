@@ -30,8 +30,8 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 });
 
 app.UseWebSockets();
-
 app.UseRouting();
+
 app.UseCors("CorsPolicy");
 app.UseRateLimiter();
 

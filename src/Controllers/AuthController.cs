@@ -93,11 +93,7 @@ namespace AuthService.src.Controllers
                 SetAccessTokenCookie(newAccessToken);
                 SetRefreshTokenCookie(newRefreshToken);
 
-                return Ok(new ResponseDTO
-                {
-                    IsSuccess = true,
-                    Message = "Success"
-                });
+                return Ok(true);
             }
             catch (Exception ex)
             {
@@ -122,11 +118,7 @@ namespace AuthService.src.Controllers
                 Response.Cookies.Delete("accessToken", GetAccessTokenCookieOptions());
                 Response.Cookies.Delete("refreshToken", GetSecureCookieOptions());
 
-                return Ok(new ResponseDTO
-                {
-                    IsSuccess = true,
-                    Message = "Signed out successfully."
-                });
+                return Ok();
             }
             catch (Exception ex)
             {

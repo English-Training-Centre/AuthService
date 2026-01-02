@@ -76,6 +76,11 @@ namespace AuthService.src.Configs
                     // --- Global por IP (opcional: pode virar policy também)
                     op.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
                     {
+                        if (HttpMethods.IsOptions(httpContext.Request.Method))
+                        {
+                            return RateLimitPartition.GetNoLimiter("options");
+                        }
+
                         var ip = httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
                         return RateLimitPartition.GetSlidingWindowLimiter(
                             partitionKey: ip,
@@ -143,16 +148,12 @@ namespace AuthService.src.Configs
                             context.HttpContext.Request.Method);
                     };
                 });
-
-                string? audience = configuration["JWTSettings:validAudience"];
-                if (string.IsNullOrWhiteSpace(audience)) throw new InvalidOperationException("JWTSettings:validAudience is missing in configuration.");
                 
                 service.AddCors(op =>
                 {
-                    op.AddPolicy("CorsPolicy",
-                    c =>
+                    op.AddPolicy("CorsPolicy", c =>
                     {
-                        c.WithOrigins(audience)
+                        c.WithOrigins("http://localhost:4200", "http://localhost:4201")
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials();
