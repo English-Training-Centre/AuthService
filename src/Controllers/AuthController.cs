@@ -8,10 +8,9 @@ namespace AuthService.src.Controllers
 {
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]    
-    public class AuthController (IAuthRepository authRepository, IUserServices userServices, ILogger<AuthController> logger) : ControllerBase, IAuthController
+    public class AuthController (IAuthHandler authHandler, ILogger<AuthController> logger) : ControllerBase, IAuthController
     {
-        private readonly IAuthRepository _authRepository = authRepository;
-        private readonly IUserServices _userServices = userServices;
+        private readonly IAuthHandler _authHandler = authHandler;
         private readonly ILogger<AuthController> _logger = logger;
 
         [EnableRateLimiting("LimitSignIn")]
@@ -20,90 +19,44 @@ namespace AuthService.src.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ResponseDTO.Failure("Invalid input.") );
 
-            try
+            var result = await _authHandler.SignIn(auth);
+
+            if (result is null || result.IsSuccess == false || result.AccessToken is null || result.RefreshToken is null) { return Unauthorized(ResponseDTO.Failure("Invalid credentials.")); }
+
+            SetAccessTokenCookie(result.AccessToken);
+            SetRefreshTokenCookie(result.RefreshToken); 
+
+            return Ok(new AuthResponseDTO
             {
-                var result = await _userServices.AuthUserAsync(auth);
-
-                if (result is null || result.IsSuccess == false) { return Unauthorized(ResponseDTO.Failure("Invalid credentials.")); }
-
-                var user = new AuthUserDTO
-                {
-                    Id = result.UserId,
-                    Username = result.Username,
-                    Role = result.Role
-                };
-                
-                var accessToken = _authRepository.GenerateAccessToken(user);
-                var refreshToken = await _authRepository.GenerateRefreshToken(user.Id);
-
-                SetAccessTokenCookie(accessToken);
-                SetRefreshTokenCookie(refreshToken); 
-
-                return Ok(new AuthResponseDTO
-                {
-                    IsSuccess = result.IsSuccess,
-                    UserId = result.UserId,
-                    Role = result.Role,
-                    AccessToken = accessToken,
-                    ExpiresAt = DateTime.UtcNow.AddMinutes(30)
-                });
-            }
-            catch (InvalidOperationException ex)
-            {
-                _logger.LogError(ex, "Error 503");
-                return StatusCode(503, new { message = ex.Message });
-            }
-            catch (Exception)
-            {
-                _logger.LogError("Error 500");
-                return StatusCode(500, new { message = "Erro interno no servidor." });
-            }
+                IsSuccess = result.IsSuccess,
+                UserId = result.UserId,
+                Role = result.Role,
+                AccessToken = result.AccessToken
+            });
         }
 
         [EnableRateLimiting("LimitRefreshToken")]
         [HttpPost("refresh")]
         public async Task<IActionResult> RefreshToken()
         {
-            try
+            var refreshToken = Request.Cookies["rfs_tk"];                
+            if (string.IsNullOrEmpty(refreshToken)) return Unauthorized(new ResponseDTO { IsSuccess = false, Message = "Refresh token missing." });
+
+            var tokenRecord = await _authHandler.GetValidRefreshToken(refreshToken);
+            if (tokenRecord is null)
             {
-                var refreshToken = Request.Cookies["refreshToken"];                
-                if (string.IsNullOrEmpty(refreshToken)) return Unauthorized(new ResponseDTO { IsSuccess = false, Message = "Refresh token missing." });
-
-                var tokenRecord = await _authRepository.GetValidRefreshToken(refreshToken);
-                if (tokenRecord is null)
-                {
-                    Response.Cookies.Delete("refreshToken", GetSecureCookieOptions());
-                    return Unauthorized(new ResponseDTO { IsSuccess = false, Message = "Invalid or expired refresh token." });
-                }                
-
-                var result = await _userServices.GetUserByIdAsync(tokenRecord.UserId);
-                if (result is null || result.IsSuccess == false) { return Unauthorized(ResponseDTO.Failure("Not Found.")); }
-
-                var user = new AuthUserDTO
-                {
-                    Id = result.UserId,
-                    Username = result.Username,
-                    Role = result.Role
-                };
-
-                var newAccessToken = _authRepository.GenerateAccessToken(user);
-                var newRefreshToken = await _authRepository.GenerateRefreshToken(user.Id);
-
-                await _authRepository.RevokeRefreshToken(refreshToken);
-                SetAccessTokenCookie(newAccessToken);
-                SetRefreshTokenCookie(newRefreshToken);
-
-                return Ok(true);
+                Response.Cookies.Delete("rfs_tk", GetSecureCookieOptions());
+                return Unauthorized(new ResponseDTO { IsSuccess = false, Message = "Invalid or expired refresh token." });
             }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Session expired. Please sign in again.");
-                return BadRequest(new ResponseDTO
-                {
-                    IsSuccess = false,
-                    Message = "Session expired. Please sign in again."
-                });
-            }
+
+            var result = await _authHandler.RefreshToken(tokenRecord.UserId, refreshToken);
+
+            if (result is null || result.IsSuccess == false || result.AccessToken is null || result.RefreshToken is null) { return Unauthorized(ResponseDTO.Failure("Not Found.")); }
+            
+            SetAccessTokenCookie(result.AccessToken);
+            SetRefreshTokenCookie(result.RefreshToken);
+
+            return Ok(true);
         }
 
         [Authorize]
@@ -112,11 +65,11 @@ namespace AuthService.src.Controllers
         {
             try
             {
-                var refreshToken = Request.Cookies["refreshToken"];
-                if (!string.IsNullOrWhiteSpace(refreshToken)) { await _authRepository.RevokeRefreshToken(refreshToken); }
+                var refreshToken = Request.Cookies["rfs_tk"];
+                if (!string.IsNullOrWhiteSpace(refreshToken)) { await _authHandler.RevokeRefreshToken(refreshToken); }
 
-                Response.Cookies.Delete("accessToken", GetAccessTokenCookieOptions());
-                Response.Cookies.Delete("refreshToken", GetSecureCookieOptions());
+                Response.Cookies.Delete("acc_tk", GetAccessTokenCookieOptions());
+                Response.Cookies.Delete("rfs_tk", GetSecureCookieOptions());
 
                 return Ok();
             }
@@ -136,7 +89,7 @@ namespace AuthService.src.Controllers
         {
             try
             {
-                var refreshToken = Request.Cookies["refreshToken"];
+                var refreshToken = Request.Cookies["rfs_tk"];
 
                 // Caso não tenha cookie de refresh token
                 if (string.IsNullOrEmpty(refreshToken))
@@ -149,13 +102,13 @@ namespace AuthService.src.Controllers
                 }
 
                 // Verifica se o refresh token ainda é válido no banco
-                var tokenRecord = await _authRepository.GetValidRefreshToken(refreshToken);
+                var tokenRecord = await _authHandler.GetValidRefreshToken(refreshToken);
 
                 if (tokenRecord == null)
                 {
                     // Token inválido ou expirado → limpa cookies para evitar loops
-                    Response.Cookies.Delete("accessToken", GetAccessTokenCookieOptions());
-                    Response.Cookies.Delete("refreshToken", GetSecureCookieOptions());
+                    Response.Cookies.Delete("acc_tk", GetAccessTokenCookieOptions());
+                    Response.Cookies.Delete("rfs_tk", GetSecureCookieOptions());
 
                     return Ok(new ResponseDTO
                     {
@@ -164,38 +117,13 @@ namespace AuthService.src.Controllers
                     });
                 }
 
-                // Token válido → usuário está logado
-                // Opcional: já gera um novo access token curto aqui se quiser (boa prática)
-                var userResult = await _userServices.GetUserByIdAsync(tokenRecord.UserId);
-                if (userResult == null || !userResult.IsSuccess)
-                {
-                    return Ok(new ResponseDTO
-                    {
-                        IsSuccess = false,
-                        Message = "User not found."
-                    });
-                }
+                var result = await _authHandler.CheckSession(tokenRecord.UserId);
+                if (result is null || result.IsSuccess == false || result.AccessToken is null) { return Unauthorized(ResponseDTO.Failure("Not Found.")); }
 
-                var user = new AuthUserDTO
-                {
-                    Id = userResult.UserId,
-                    Username = userResult.Username,
-                    Role = userResult.Role
-                };
 
-                var newAccessToken = _authRepository.GenerateAccessToken(user);
+                SetAccessTokenCookie(result.AccessToken);
 
-                // Atualiza o access token no cookie (opcional, mas recomendado)
-                SetAccessTokenCookie(newAccessToken);
-
-                return Ok(new AuthResponseDTO
-                {
-                    IsSuccess = userResult.IsSuccess,
-                    UserId = userResult.UserId,
-                    Role = userResult.Role,
-                    AccessToken = newAccessToken,
-                    ExpiresAt = DateTime.UtcNow.AddMinutes(30)
-                });
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -210,12 +138,12 @@ namespace AuthService.src.Controllers
 
         private void SetAccessTokenCookie(string token)
         {
-            Response.Cookies.Append("accessToken", token, GetAccessTokenCookieOptions());
+            Response.Cookies.Append("acc_tk", token, GetAccessTokenCookieOptions());
         }
 
         private void SetRefreshTokenCookie(string token)
         {
-            Response.Cookies.Append("refreshToken", token, GetSecureCookieOptions());
+            Response.Cookies.Append("rfs_tk", token, GetSecureCookieOptions());
         }
 
         private static CookieOptions GetAccessTokenCookieOptions()

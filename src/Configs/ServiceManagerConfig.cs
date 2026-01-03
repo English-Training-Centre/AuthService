@@ -1,5 +1,6 @@
 using System.Threading.RateLimiting;
 using AuthService.src.DB;
+using AuthService.src.Handlers;
 using AuthService.src.Interfaces;
 using AuthService.src.Repositories;
 using AuthService.src.Services;
@@ -69,6 +70,7 @@ namespace AuthService.src.Configs
 
                 service.AddScoped<IPostgresDbData, PostgresDB>();
                 service.AddScoped<IAuthRepository, AuthRepository>();
+                service.AddScoped<IAuthHandler, AuthHandler>();
 
                 // Rate limitting: Sliding Windows
                 service.AddRateLimiter(op =>
