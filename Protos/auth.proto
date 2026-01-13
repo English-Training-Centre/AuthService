@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+option csharp_namespace = "AuthService";
+
+package auth;
+
+import "google/protobuf/empty.proto";
+
+service AuthGrpc {
+    rpc SignIn(GrpcAuthRequest) returns (GrpcSignInResponse);
+    rpc RefreshToken(GrpcRefreshTokenRequest) returns (GrpcUserRefreshTokenResponse);
+    rpc GetValidRefreshToken(GrpcTokenRequest) returns (GrpcRefreshTokenResponse);
+    rpc RevokeRefreshToken(GrpcTokenRequest) returns (google.protobuf.Empty);
+    rpc CheckSession(GrpcSessionRequest) returns (GrpcSessionResponse);
+}
+
+message GrpcSignInResponse {
+    bool isSuccess = 1;
+    optional string userId = 2;
+    optional string role = 3;
+    optional string accessToken = 4;
+    optional string refreshToken = 5;
+}
+
+message GrpcUserRefreshTokenResponse {
+    bool isSuccess = 1;
+    optional string accessToken = 2;
+    optional string refreshToken = 3;
+}
+
+message GrpcRefreshTokenResponse {
+    optional string userId = 1;
+    optional string token = 2;
+}
+
+message GrpcSessionResponse {
+    bool isSuccess = 1;
+    string userId = 2;
+    string role = 3;
+    string accessToken = 4;
+}
+
+message GrpcAuthRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message GrpcRefreshTokenRequest {
+    string userId = 1;
+    string token = 2;
+}
+
+message GrpcTokenRequest {
+    string token = 1;
+}
+
+message GrpcSessionRequest {
+    string userId = 1;
+}
