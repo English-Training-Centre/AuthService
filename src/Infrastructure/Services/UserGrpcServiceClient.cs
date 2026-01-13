@@ -29,7 +29,7 @@ public sealed class UserGrpcServiceClient(UsersAuthGrpc.UsersAuthGrpcClient clie
         }
         catch (RpcException ex)
         {
-            _logger.LogError(ex, "- UserService -> AuthAsync(...)");
+            _logger.LogError(ex, "- UserGrpcServiceClient -> AuthAsync(...)");
             return new UserServiceResponse { IsSuccess = false };
         }
 
@@ -53,7 +53,7 @@ public sealed class UserGrpcServiceClient(UsersAuthGrpc.UsersAuthGrpcClient clie
         }
         catch (RpcException ex)
         {
-            _logger.LogError(ex, "- UserService -> GetAuthByIdAsync(...)");
+            _logger.LogError(ex, "- UserGrpcServiceClient -> GetAuthByIdAsync(...)");
             return new UserServiceResponse { IsSuccess = false };
         }
 
