@@ -22,7 +22,7 @@ public sealed class UserHandler(IUserRepository userRepository, IUserGrpcService
         {
             var result = await _userGrpcServiceClient.AuthAsync(request, ct);
 
-            if (result.IsSuccess == false || result.UserId is null || result.Username is null || result.Role is null)
+            if (result.IsSuccess == false || result.UserId is null || result.FullName is null || result.Username is null || result.Role is null)
             {
                 _logger.LogInformation($"Invalid credentials.");
                 return AuthResponse.Failure();
@@ -31,6 +31,7 @@ public sealed class UserHandler(IUserRepository userRepository, IUserGrpcService
             var tokenRequest = new GenerateTokenRequest
             {
                 UserId = result.UserId.Value,
+                FullName = result.FullName,
                 Username = result.Username,
                 Role = result.Role
             };
@@ -62,11 +63,12 @@ public sealed class UserHandler(IUserRepository userRepository, IUserGrpcService
         try
         {
             var result = await _userGrpcServiceClient.GetAuthByIdAsync(request.UserId, ct);
-            if (result.IsSuccess == false || result.UserId is null || result.Username is null || result.Role is null) { return AuthResponse.Failure(); }
+            if (result.IsSuccess == false || result.UserId is null || result.FullName is null || result.Username is null || result.Role is null) { return AuthResponse.Failure(); }
 
             var tokenRequest = new GenerateTokenRequest
             {
                 UserId = result.UserId.Value,
+                FullName = result.FullName,
                 Username = result.Username,
                 Role = result.Role
             };
@@ -96,11 +98,12 @@ public sealed class UserHandler(IUserRepository userRepository, IUserGrpcService
         {
             var result = await _userGrpcServiceClient.GetAuthByIdAsync(userId, ct);
 
-            if (result.IsSuccess == false || result.UserId is null || result.Username is null || result.Role is null) { return CheckSessionResponse.Failure(); }
+            if (result.IsSuccess == false || result.UserId is null || result.FullName is null || result.Username is null || result.Role is null) { return CheckSessionResponse.Failure(); }
 
             var tokenRequest = new GenerateTokenRequest
             {
                 UserId = result.UserId.Value,
+                FullName = result.FullName,
                 Username = result.Username,
                 Role = result.Role
             };
@@ -127,6 +130,7 @@ public sealed class UserHandler(IUserRepository userRepository, IUserGrpcService
             var claims = new[]
             {
                     new Claim(JwtRegisteredClaimNames.Sub, request.UserId.ToString()),
+                    new Claim(JwtRegisteredClaimNames.Name, request.FullName),
                     new Claim(JwtRegisteredClaimNames.UniqueName, request.Username),
                     new Claim(ClaimTypes.Role, request.Role),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())

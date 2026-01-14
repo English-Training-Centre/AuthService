@@ -24,21 +24,22 @@ namespace UserService {
     static UsersAuthReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChB1c2Vycy5hdXRoLnByb3RvEgp1c2Vycy5hdXRoIokBChRHcnBjVXNlckF1",
+            "ChB1c2Vycy5hdXRoLnByb3RvEgp1c2Vycy5hdXRoIq0BChRHcnBjVXNlckF1",
             "dGhSZXNwb25zZRIRCglpc1N1Y2Nlc3MYASABKAgSEwoGdXNlcklkGAIgASgJ",
-            "SACIAQESFQoIdXNlcm5hbWUYAyABKAlIAYgBARIRCgRyb2xlGAQgASgJSAKI",
-            "AQFCCQoHX3VzZXJJZEILCglfdXNlcm5hbWVCBwoFX3JvbGUiOQoTR3JwY1Vz",
-            "ZXJBdXRoUmVxdWVzdBIQCgh1c2VybmFtZRgBIAEoCRIQCghwYXNzd29yZBgC",
-            "IAEoCSIjChFHcnBjVXNlcklkUmVxdWVzdBIOCgZ1c2VySWQYASABKAkyqgEK",
-            "DVVzZXJzQXV0aEdycGMSSQoEQXV0aBIfLnVzZXJzLmF1dGguR3JwY1VzZXJB",
-            "dXRoUmVxdWVzdBogLnVzZXJzLmF1dGguR3JwY1VzZXJBdXRoUmVzcG9uc2US",
-            "TgoLR2V0QXV0aEJ5SWQSHS51c2Vycy5hdXRoLkdycGNVc2VySWRSZXF1ZXN0",
-            "GiAudXNlcnMuYXV0aC5HcnBjVXNlckF1dGhSZXNwb25zZUIOqgILVXNlclNl",
-            "cnZpY2ViBnByb3RvMw=="));
+            "SACIAQESFQoIZnVsbE5hbWUYAyABKAlIAYgBARIVCgh1c2VybmFtZRgEIAEo",
+            "CUgCiAEBEhEKBHJvbGUYBSABKAlIA4gBAUIJCgdfdXNlcklkQgsKCV9mdWxs",
+            "TmFtZUILCglfdXNlcm5hbWVCBwoFX3JvbGUiOQoTR3JwY1VzZXJBdXRoUmVx",
+            "dWVzdBIQCgh1c2VybmFtZRgBIAEoCRIQCghwYXNzd29yZBgCIAEoCSIjChFH",
+            "cnBjVXNlcklkUmVxdWVzdBIOCgZ1c2VySWQYASABKAkyqgEKDVVzZXJzQXV0",
+            "aEdycGMSSQoEQXV0aBIfLnVzZXJzLmF1dGguR3JwY1VzZXJBdXRoUmVxdWVz",
+            "dBogLnVzZXJzLmF1dGguR3JwY1VzZXJBdXRoUmVzcG9uc2USTgoLR2V0QXV0",
+            "aEJ5SWQSHS51c2Vycy5hdXRoLkdycGNVc2VySWRSZXF1ZXN0GiAudXNlcnMu",
+            "YXV0aC5HcnBjVXNlckF1dGhSZXNwb25zZUIOqgILVXNlclNlcnZpY2ViBnBy",
+            "b3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::UserService.GrpcUserAuthResponse), global::UserService.GrpcUserAuthResponse.Parser, new[]{ "IsSuccess", "UserId", "Username", "Role" }, new[]{ "UserId", "Username", "Role" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::UserService.GrpcUserAuthResponse), global::UserService.GrpcUserAuthResponse.Parser, new[]{ "IsSuccess", "UserId", "FullName", "Username", "Role" }, new[]{ "UserId", "FullName", "Username", "Role" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::UserService.GrpcUserAuthRequest), global::UserService.GrpcUserAuthRequest.Parser, new[]{ "Username", "Password" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::UserService.GrpcUserIdRequest), global::UserService.GrpcUserIdRequest.Parser, new[]{ "UserId" }, null, null, null, null)
           }));
@@ -84,6 +85,7 @@ namespace UserService {
     public GrpcUserAuthResponse(GrpcUserAuthResponse other) : this() {
       isSuccess_ = other.isSuccess_;
       userId_ = other.userId_;
+      fullName_ = other.fullName_;
       username_ = other.username_;
       role_ = other.role_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -133,8 +135,34 @@ namespace UserService {
       userId_ = null;
     }
 
+    /// <summary>Field number for the "fullName" field.</summary>
+    public const int FullNameFieldNumber = 3;
+    private readonly static string FullNameDefaultValue = "";
+
+    private string fullName_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string FullName {
+      get { return fullName_ ?? FullNameDefaultValue; }
+      set {
+        fullName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+    /// <summary>Gets whether the "fullName" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasFullName {
+      get { return fullName_ != null; }
+    }
+    /// <summary>Clears the value of the "fullName" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearFullName() {
+      fullName_ = null;
+    }
+
     /// <summary>Field number for the "username" field.</summary>
-    public const int UsernameFieldNumber = 3;
+    public const int UsernameFieldNumber = 4;
     private readonly static string UsernameDefaultValue = "";
 
     private string username_;
@@ -160,7 +188,7 @@ namespace UserService {
     }
 
     /// <summary>Field number for the "role" field.</summary>
-    public const int RoleFieldNumber = 4;
+    public const int RoleFieldNumber = 5;
     private readonly static string RoleDefaultValue = "";
 
     private string role_;
@@ -202,6 +230,7 @@ namespace UserService {
       }
       if (IsSuccess != other.IsSuccess) return false;
       if (UserId != other.UserId) return false;
+      if (FullName != other.FullName) return false;
       if (Username != other.Username) return false;
       if (Role != other.Role) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -213,6 +242,7 @@ namespace UserService {
       int hash = 1;
       if (IsSuccess != false) hash ^= IsSuccess.GetHashCode();
       if (HasUserId) hash ^= UserId.GetHashCode();
+      if (HasFullName) hash ^= FullName.GetHashCode();
       if (HasUsername) hash ^= Username.GetHashCode();
       if (HasRole) hash ^= Role.GetHashCode();
       if (_unknownFields != null) {
@@ -241,12 +271,16 @@ namespace UserService {
         output.WriteRawTag(18);
         output.WriteString(UserId);
       }
-      if (HasUsername) {
+      if (HasFullName) {
         output.WriteRawTag(26);
+        output.WriteString(FullName);
+      }
+      if (HasUsername) {
+        output.WriteRawTag(34);
         output.WriteString(Username);
       }
       if (HasRole) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(42);
         output.WriteString(Role);
       }
       if (_unknownFields != null) {
@@ -267,12 +301,16 @@ namespace UserService {
         output.WriteRawTag(18);
         output.WriteString(UserId);
       }
-      if (HasUsername) {
+      if (HasFullName) {
         output.WriteRawTag(26);
+        output.WriteString(FullName);
+      }
+      if (HasUsername) {
+        output.WriteRawTag(34);
         output.WriteString(Username);
       }
       if (HasRole) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(42);
         output.WriteString(Role);
       }
       if (_unknownFields != null) {
@@ -290,6 +328,9 @@ namespace UserService {
       }
       if (HasUserId) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(UserId);
+      }
+      if (HasFullName) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(FullName);
       }
       if (HasUsername) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Username);
@@ -314,6 +355,9 @@ namespace UserService {
       }
       if (other.HasUserId) {
         UserId = other.UserId;
+      }
+      if (other.HasFullName) {
+        FullName = other.FullName;
       }
       if (other.HasUsername) {
         Username = other.Username;
@@ -349,10 +393,14 @@ namespace UserService {
             break;
           }
           case 26: {
-            Username = input.ReadString();
+            FullName = input.ReadString();
             break;
           }
           case 34: {
+            Username = input.ReadString();
+            break;
+          }
+          case 42: {
             Role = input.ReadString();
             break;
           }
@@ -384,10 +432,14 @@ namespace UserService {
             break;
           }
           case 26: {
-            Username = input.ReadString();
+            FullName = input.ReadString();
             break;
           }
           case 34: {
+            Username = input.ReadString();
+            break;
+          }
+          case 42: {
             Role = input.ReadString();
             break;
           }

@@ -74,6 +74,7 @@ public sealed class UserGrpcServiceClient(UsersAuthGrpc.UsersAuthGrpcClient clie
         {
             IsSuccess = true,
             UserId = userId,
+            FullName = grpcResponse.FullName ?? string.Empty,
             Username = grpcResponse.Username ?? string.Empty,
             Role = grpcResponse.Role ?? string.Empty
         };
