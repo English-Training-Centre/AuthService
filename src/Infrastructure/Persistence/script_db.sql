@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS tbRefreshToken
 (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL,
-    token TEXT NOT NULL UNIQUE,
+    refresh_token TEXT NOT NULL UNIQUE,
     expires_at TIMESTAMPTZ NOT NULL DEFAULT (NOW() + INTERVAL '2 months'),
     created_at TIMESTAMPTZ DEFAULT NOW(),
     revoked_at TIMESTAMPTZ

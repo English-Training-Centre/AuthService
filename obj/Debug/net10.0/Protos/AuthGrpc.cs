@@ -48,15 +48,13 @@ namespace AuthService {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::AuthService.GrpcAuthRequest> __Marshaller_auth_GrpcAuthRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::AuthService.GrpcAuthRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::AuthService.GrpcSignInResponse> __Marshaller_auth_GrpcSignInResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::AuthService.GrpcSignInResponse.Parser));
+    static readonly grpc::Marshaller<global::AuthService.GrpcAuthResponse> __Marshaller_auth_GrpcAuthResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::AuthService.GrpcAuthResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::AuthService.GrpcRefreshTokenRequest> __Marshaller_auth_GrpcRefreshTokenRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::AuthService.GrpcRefreshTokenRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::AuthService.GrpcUserRefreshTokenResponse> __Marshaller_auth_GrpcUserRefreshTokenResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::AuthService.GrpcUserRefreshTokenResponse.Parser));
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::AuthService.GrpcTokenRequest> __Marshaller_auth_GrpcTokenRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::AuthService.GrpcTokenRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::AuthService.GrpcRefreshTokenResponse> __Marshaller_auth_GrpcRefreshTokenResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::AuthService.GrpcRefreshTokenResponse.Parser));
+    static readonly grpc::Marshaller<global::AuthService.GrpcGetTokenResponse> __Marshaller_auth_GrpcGetTokenResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::AuthService.GrpcGetTokenResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Google.Protobuf.WellKnownTypes.Empty> __Marshaller_google_protobuf_Empty = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Google.Protobuf.WellKnownTypes.Empty.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
@@ -65,28 +63,28 @@ namespace AuthService {
     static readonly grpc::Marshaller<global::AuthService.GrpcSessionResponse> __Marshaller_auth_GrpcSessionResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::AuthService.GrpcSessionResponse.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::AuthService.GrpcAuthRequest, global::AuthService.GrpcSignInResponse> __Method_SignIn = new grpc::Method<global::AuthService.GrpcAuthRequest, global::AuthService.GrpcSignInResponse>(
+    static readonly grpc::Method<global::AuthService.GrpcAuthRequest, global::AuthService.GrpcAuthResponse> __Method_SignIn = new grpc::Method<global::AuthService.GrpcAuthRequest, global::AuthService.GrpcAuthResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "SignIn",
         __Marshaller_auth_GrpcAuthRequest,
-        __Marshaller_auth_GrpcSignInResponse);
+        __Marshaller_auth_GrpcAuthResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::AuthService.GrpcRefreshTokenRequest, global::AuthService.GrpcUserRefreshTokenResponse> __Method_RefreshToken = new grpc::Method<global::AuthService.GrpcRefreshTokenRequest, global::AuthService.GrpcUserRefreshTokenResponse>(
+    static readonly grpc::Method<global::AuthService.GrpcRefreshTokenRequest, global::AuthService.GrpcAuthResponse> __Method_RefreshToken = new grpc::Method<global::AuthService.GrpcRefreshTokenRequest, global::AuthService.GrpcAuthResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "RefreshToken",
         __Marshaller_auth_GrpcRefreshTokenRequest,
-        __Marshaller_auth_GrpcUserRefreshTokenResponse);
+        __Marshaller_auth_GrpcAuthResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::AuthService.GrpcTokenRequest, global::AuthService.GrpcRefreshTokenResponse> __Method_GetValidRefreshToken = new grpc::Method<global::AuthService.GrpcTokenRequest, global::AuthService.GrpcRefreshTokenResponse>(
+    static readonly grpc::Method<global::AuthService.GrpcTokenRequest, global::AuthService.GrpcGetTokenResponse> __Method_GetValidRefreshToken = new grpc::Method<global::AuthService.GrpcTokenRequest, global::AuthService.GrpcGetTokenResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "GetValidRefreshToken",
         __Marshaller_auth_GrpcTokenRequest,
-        __Marshaller_auth_GrpcRefreshTokenResponse);
+        __Marshaller_auth_GrpcGetTokenResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::AuthService.GrpcTokenRequest, global::Google.Protobuf.WellKnownTypes.Empty> __Method_RevokeRefreshToken = new grpc::Method<global::AuthService.GrpcTokenRequest, global::Google.Protobuf.WellKnownTypes.Empty>(
@@ -115,19 +113,19 @@ namespace AuthService {
     public abstract partial class AuthGrpcBase
     {
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::AuthService.GrpcSignInResponse> SignIn(global::AuthService.GrpcAuthRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::AuthService.GrpcAuthResponse> SignIn(global::AuthService.GrpcAuthRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::AuthService.GrpcUserRefreshTokenResponse> RefreshToken(global::AuthService.GrpcRefreshTokenRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::AuthService.GrpcAuthResponse> RefreshToken(global::AuthService.GrpcRefreshTokenRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::AuthService.GrpcRefreshTokenResponse> GetValidRefreshToken(global::AuthService.GrpcTokenRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::AuthService.GrpcGetTokenResponse> GetValidRefreshToken(global::AuthService.GrpcTokenRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -166,9 +164,9 @@ namespace AuthService {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     public static void BindService(grpc::ServiceBinderBase serviceBinder, AuthGrpcBase serviceImpl)
     {
-      serviceBinder.AddMethod(__Method_SignIn, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::AuthService.GrpcAuthRequest, global::AuthService.GrpcSignInResponse>(serviceImpl.SignIn));
-      serviceBinder.AddMethod(__Method_RefreshToken, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::AuthService.GrpcRefreshTokenRequest, global::AuthService.GrpcUserRefreshTokenResponse>(serviceImpl.RefreshToken));
-      serviceBinder.AddMethod(__Method_GetValidRefreshToken, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::AuthService.GrpcTokenRequest, global::AuthService.GrpcRefreshTokenResponse>(serviceImpl.GetValidRefreshToken));
+      serviceBinder.AddMethod(__Method_SignIn, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::AuthService.GrpcAuthRequest, global::AuthService.GrpcAuthResponse>(serviceImpl.SignIn));
+      serviceBinder.AddMethod(__Method_RefreshToken, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::AuthService.GrpcRefreshTokenRequest, global::AuthService.GrpcAuthResponse>(serviceImpl.RefreshToken));
+      serviceBinder.AddMethod(__Method_GetValidRefreshToken, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::AuthService.GrpcTokenRequest, global::AuthService.GrpcGetTokenResponse>(serviceImpl.GetValidRefreshToken));
       serviceBinder.AddMethod(__Method_RevokeRefreshToken, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::AuthService.GrpcTokenRequest, global::Google.Protobuf.WellKnownTypes.Empty>(serviceImpl.RevokeRefreshToken));
       serviceBinder.AddMethod(__Method_CheckSession, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::AuthService.GrpcSessionRequest, global::AuthService.GrpcSessionResponse>(serviceImpl.CheckSession));
     }

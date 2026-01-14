@@ -25,41 +25,34 @@ namespace AuthService {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChFQcm90b3MvYXV0aC5wcm90bxIEYXV0aBobZ29vZ2xlL3Byb3RvYnVmL2Vt",
-            "cHR5LnByb3RvIrkBChJHcnBjU2lnbkluUmVzcG9uc2USEQoJaXNTdWNjZXNz",
-            "GAEgASgIEhMKBnVzZXJJZBgCIAEoCUgAiAEBEhEKBHJvbGUYAyABKAlIAYgB",
-            "ARIYCgthY2Nlc3NUb2tlbhgEIAEoCUgCiAEBEhkKDHJlZnJlc2hUb2tlbhgF",
-            "IAEoCUgDiAEBQgkKB191c2VySWRCBwoFX3JvbGVCDgoMX2FjY2Vzc1Rva2Vu",
-            "Qg8KDV9yZWZyZXNoVG9rZW4ihwEKHEdycGNVc2VyUmVmcmVzaFRva2VuUmVz",
-            "cG9uc2USEQoJaXNTdWNjZXNzGAEgASgIEhgKC2FjY2Vzc1Rva2VuGAIgASgJ",
-            "SACIAQESGQoMcmVmcmVzaFRva2VuGAMgASgJSAGIAQFCDgoMX2FjY2Vzc1Rv",
-            "a2VuQg8KDV9yZWZyZXNoVG9rZW4iWAoYR3JwY1JlZnJlc2hUb2tlblJlc3Bv",
-            "bnNlEhMKBnVzZXJJZBgBIAEoCUgAiAEBEhIKBXRva2VuGAIgASgJSAGIAQFC",
-            "CQoHX3VzZXJJZEIICgZfdG9rZW4iWwoTR3JwY1Nlc3Npb25SZXNwb25zZRIR",
-            "Cglpc1N1Y2Nlc3MYASABKAgSDgoGdXNlcklkGAIgASgJEgwKBHJvbGUYAyAB",
-            "KAkSEwoLYWNjZXNzVG9rZW4YBCABKAkiNQoPR3JwY0F1dGhSZXF1ZXN0EhAK",
-            "CHVzZXJuYW1lGAEgASgJEhAKCHBhc3N3b3JkGAIgASgJIjgKF0dycGNSZWZy",
-            "ZXNoVG9rZW5SZXF1ZXN0Eg4KBnVzZXJJZBgBIAEoCRINCgV0b2tlbhgCIAEo",
-            "CSIhChBHcnBjVG9rZW5SZXF1ZXN0Eg0KBXRva2VuGAEgASgJIiQKEkdycGNT",
-            "ZXNzaW9uUmVxdWVzdBIOCgZ1c2VySWQYASABKAky8wIKCEF1dGhHcnBjEjkK",
-            "BlNpZ25JbhIVLmF1dGguR3JwY0F1dGhSZXF1ZXN0GhguYXV0aC5HcnBjU2ln",
-            "bkluUmVzcG9uc2USUQoMUmVmcmVzaFRva2VuEh0uYXV0aC5HcnBjUmVmcmVz",
-            "aFRva2VuUmVxdWVzdBoiLmF1dGguR3JwY1VzZXJSZWZyZXNoVG9rZW5SZXNw",
-            "b25zZRJOChRHZXRWYWxpZFJlZnJlc2hUb2tlbhIWLmF1dGguR3JwY1Rva2Vu",
-            "UmVxdWVzdBoeLmF1dGguR3JwY1JlZnJlc2hUb2tlblJlc3BvbnNlEkQKElJl",
-            "dm9rZVJlZnJlc2hUb2tlbhIWLmF1dGguR3JwY1Rva2VuUmVxdWVzdBoWLmdv",
-            "b2dsZS5wcm90b2J1Zi5FbXB0eRJDCgxDaGVja1Nlc3Npb24SGC5hdXRoLkdy",
-            "cGNTZXNzaW9uUmVxdWVzdBoZLmF1dGguR3JwY1Nlc3Npb25SZXNwb25zZUIO",
-            "qgILQXV0aFNlcnZpY2ViBnByb3RvMw=="));
+            "cHR5LnByb3RvInsKEEdycGNBdXRoUmVzcG9uc2USEQoJaXNTdWNjZXNzGAEg",
+            "ASgIEhgKC2FjY2Vzc1Rva2VuGAIgASgJSACIAQESGQoMcmVmcmVzaFRva2Vu",
+            "GAMgASgJSAGIAQFCDgoMX2FjY2Vzc1Rva2VuQg8KDV9yZWZyZXNoVG9rZW4i",
+            "NgoUR3JwY0dldFRva2VuUmVzcG9uc2USEwoGdXNlcklkGAEgASgJSACIAQFC",
+            "CQoHX3VzZXJJZCI9ChNHcnBjU2Vzc2lvblJlc3BvbnNlEhEKCWlzU3VjY2Vz",
+            "cxgBIAEoCBITCgthY2Nlc3NUb2tlbhgCIAEoCSI1Cg9HcnBjQXV0aFJlcXVl",
+            "c3QSEAoIdXNlcm5hbWUYASABKAkSEAoIcGFzc3dvcmQYAiABKAkiPwoXR3Jw",
+            "Y1JlZnJlc2hUb2tlblJlcXVlc3QSDgoGdXNlcklkGAEgASgJEhQKDHJlZnJl",
+            "c2hUb2tlbhgCIAEoCSIoChBHcnBjVG9rZW5SZXF1ZXN0EhQKDHJlZnJlc2hU",
+            "b2tlbhgBIAEoCSIkChJHcnBjU2Vzc2lvblJlcXVlc3QSDgoGdXNlcklkGAEg",
+            "ASgJMuECCghBdXRoR3JwYxI3CgZTaWduSW4SFS5hdXRoLkdycGNBdXRoUmVx",
+            "dWVzdBoWLmF1dGguR3JwY0F1dGhSZXNwb25zZRJFCgxSZWZyZXNoVG9rZW4S",
+            "HS5hdXRoLkdycGNSZWZyZXNoVG9rZW5SZXF1ZXN0GhYuYXV0aC5HcnBjQXV0",
+            "aFJlc3BvbnNlEkoKFEdldFZhbGlkUmVmcmVzaFRva2VuEhYuYXV0aC5HcnBj",
+            "VG9rZW5SZXF1ZXN0GhouYXV0aC5HcnBjR2V0VG9rZW5SZXNwb25zZRJEChJS",
+            "ZXZva2VSZWZyZXNoVG9rZW4SFi5hdXRoLkdycGNUb2tlblJlcXVlc3QaFi5n",
+            "b29nbGUucHJvdG9idWYuRW1wdHkSQwoMQ2hlY2tTZXNzaW9uEhguYXV0aC5H",
+            "cnBjU2Vzc2lvblJlcXVlc3QaGS5hdXRoLkdycGNTZXNzaW9uUmVzcG9uc2VC",
+            "DqoCC0F1dGhTZXJ2aWNlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.EmptyReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::AuthService.GrpcSignInResponse), global::AuthService.GrpcSignInResponse.Parser, new[]{ "IsSuccess", "UserId", "Role", "AccessToken", "RefreshToken" }, new[]{ "UserId", "Role", "AccessToken", "RefreshToken" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::AuthService.GrpcUserRefreshTokenResponse), global::AuthService.GrpcUserRefreshTokenResponse.Parser, new[]{ "IsSuccess", "AccessToken", "RefreshToken" }, new[]{ "AccessToken", "RefreshToken" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::AuthService.GrpcRefreshTokenResponse), global::AuthService.GrpcRefreshTokenResponse.Parser, new[]{ "UserId", "Token" }, new[]{ "UserId", "Token" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::AuthService.GrpcSessionResponse), global::AuthService.GrpcSessionResponse.Parser, new[]{ "IsSuccess", "UserId", "Role", "AccessToken" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::AuthService.GrpcAuthResponse), global::AuthService.GrpcAuthResponse.Parser, new[]{ "IsSuccess", "AccessToken", "RefreshToken" }, new[]{ "AccessToken", "RefreshToken" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::AuthService.GrpcGetTokenResponse), global::AuthService.GrpcGetTokenResponse.Parser, new[]{ "UserId" }, new[]{ "UserId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::AuthService.GrpcSessionResponse), global::AuthService.GrpcSessionResponse.Parser, new[]{ "IsSuccess", "AccessToken" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::AuthService.GrpcAuthRequest), global::AuthService.GrpcAuthRequest.Parser, new[]{ "Username", "Password" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::AuthService.GrpcRefreshTokenRequest), global::AuthService.GrpcRefreshTokenRequest.Parser, new[]{ "UserId", "Token" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::AuthService.GrpcTokenRequest), global::AuthService.GrpcTokenRequest.Parser, new[]{ "Token" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::AuthService.GrpcRefreshTokenRequest), global::AuthService.GrpcRefreshTokenRequest.Parser, new[]{ "UserId", "RefreshToken" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::AuthService.GrpcTokenRequest), global::AuthService.GrpcTokenRequest.Parser, new[]{ "RefreshToken" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::AuthService.GrpcSessionRequest), global::AuthService.GrpcSessionRequest.Parser, new[]{ "UserId" }, null, null, null, null)
           }));
     }
@@ -68,16 +61,16 @@ namespace AuthService {
   }
   #region Messages
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class GrpcSignInResponse : pb::IMessage<GrpcSignInResponse>
+  public sealed partial class GrpcAuthResponse : pb::IMessage<GrpcAuthResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<GrpcSignInResponse> _parser = new pb::MessageParser<GrpcSignInResponse>(() => new GrpcSignInResponse());
+    private static readonly pb::MessageParser<GrpcAuthResponse> _parser = new pb::MessageParser<GrpcAuthResponse>(() => new GrpcAuthResponse());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GrpcSignInResponse> Parser { get { return _parser; } }
+    public static pb::MessageParser<GrpcAuthResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -93,7 +86,7 @@ namespace AuthService {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GrpcSignInResponse() {
+    public GrpcAuthResponse() {
       OnConstruction();
     }
 
@@ -101,409 +94,7 @@ namespace AuthService {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GrpcSignInResponse(GrpcSignInResponse other) : this() {
-      isSuccess_ = other.isSuccess_;
-      userId_ = other.userId_;
-      role_ = other.role_;
-      accessToken_ = other.accessToken_;
-      refreshToken_ = other.refreshToken_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GrpcSignInResponse Clone() {
-      return new GrpcSignInResponse(this);
-    }
-
-    /// <summary>Field number for the "isSuccess" field.</summary>
-    public const int IsSuccessFieldNumber = 1;
-    private bool isSuccess_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool IsSuccess {
-      get { return isSuccess_; }
-      set {
-        isSuccess_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "userId" field.</summary>
-    public const int UserIdFieldNumber = 2;
-    private readonly static string UserIdDefaultValue = "";
-
-    private string userId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string UserId {
-      get { return userId_ ?? UserIdDefaultValue; }
-      set {
-        userId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-    /// <summary>Gets whether the "userId" field is set</summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool HasUserId {
-      get { return userId_ != null; }
-    }
-    /// <summary>Clears the value of the "userId" field</summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void ClearUserId() {
-      userId_ = null;
-    }
-
-    /// <summary>Field number for the "role" field.</summary>
-    public const int RoleFieldNumber = 3;
-    private readonly static string RoleDefaultValue = "";
-
-    private string role_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Role {
-      get { return role_ ?? RoleDefaultValue; }
-      set {
-        role_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-    /// <summary>Gets whether the "role" field is set</summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool HasRole {
-      get { return role_ != null; }
-    }
-    /// <summary>Clears the value of the "role" field</summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void ClearRole() {
-      role_ = null;
-    }
-
-    /// <summary>Field number for the "accessToken" field.</summary>
-    public const int AccessTokenFieldNumber = 4;
-    private readonly static string AccessTokenDefaultValue = "";
-
-    private string accessToken_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string AccessToken {
-      get { return accessToken_ ?? AccessTokenDefaultValue; }
-      set {
-        accessToken_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-    /// <summary>Gets whether the "accessToken" field is set</summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool HasAccessToken {
-      get { return accessToken_ != null; }
-    }
-    /// <summary>Clears the value of the "accessToken" field</summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void ClearAccessToken() {
-      accessToken_ = null;
-    }
-
-    /// <summary>Field number for the "refreshToken" field.</summary>
-    public const int RefreshTokenFieldNumber = 5;
-    private readonly static string RefreshTokenDefaultValue = "";
-
-    private string refreshToken_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string RefreshToken {
-      get { return refreshToken_ ?? RefreshTokenDefaultValue; }
-      set {
-        refreshToken_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-    /// <summary>Gets whether the "refreshToken" field is set</summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool HasRefreshToken {
-      get { return refreshToken_ != null; }
-    }
-    /// <summary>Clears the value of the "refreshToken" field</summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void ClearRefreshToken() {
-      refreshToken_ = null;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as GrpcSignInResponse);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GrpcSignInResponse other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (IsSuccess != other.IsSuccess) return false;
-      if (UserId != other.UserId) return false;
-      if (Role != other.Role) return false;
-      if (AccessToken != other.AccessToken) return false;
-      if (RefreshToken != other.RefreshToken) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (IsSuccess != false) hash ^= IsSuccess.GetHashCode();
-      if (HasUserId) hash ^= UserId.GetHashCode();
-      if (HasRole) hash ^= Role.GetHashCode();
-      if (HasAccessToken) hash ^= AccessToken.GetHashCode();
-      if (HasRefreshToken) hash ^= RefreshToken.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (IsSuccess != false) {
-        output.WriteRawTag(8);
-        output.WriteBool(IsSuccess);
-      }
-      if (HasUserId) {
-        output.WriteRawTag(18);
-        output.WriteString(UserId);
-      }
-      if (HasRole) {
-        output.WriteRawTag(26);
-        output.WriteString(Role);
-      }
-      if (HasAccessToken) {
-        output.WriteRawTag(34);
-        output.WriteString(AccessToken);
-      }
-      if (HasRefreshToken) {
-        output.WriteRawTag(42);
-        output.WriteString(RefreshToken);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (IsSuccess != false) {
-        output.WriteRawTag(8);
-        output.WriteBool(IsSuccess);
-      }
-      if (HasUserId) {
-        output.WriteRawTag(18);
-        output.WriteString(UserId);
-      }
-      if (HasRole) {
-        output.WriteRawTag(26);
-        output.WriteString(Role);
-      }
-      if (HasAccessToken) {
-        output.WriteRawTag(34);
-        output.WriteString(AccessToken);
-      }
-      if (HasRefreshToken) {
-        output.WriteRawTag(42);
-        output.WriteString(RefreshToken);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (IsSuccess != false) {
-        size += 1 + 1;
-      }
-      if (HasUserId) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(UserId);
-      }
-      if (HasRole) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Role);
-      }
-      if (HasAccessToken) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(AccessToken);
-      }
-      if (HasRefreshToken) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(RefreshToken);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GrpcSignInResponse other) {
-      if (other == null) {
-        return;
-      }
-      if (other.IsSuccess != false) {
-        IsSuccess = other.IsSuccess;
-      }
-      if (other.HasUserId) {
-        UserId = other.UserId;
-      }
-      if (other.HasRole) {
-        Role = other.Role;
-      }
-      if (other.HasAccessToken) {
-        AccessToken = other.AccessToken;
-      }
-      if (other.HasRefreshToken) {
-        RefreshToken = other.RefreshToken;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-      if ((tag & 7) == 4) {
-        // Abort on any end group tag.
-        return;
-      }
-      switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 8: {
-            IsSuccess = input.ReadBool();
-            break;
-          }
-          case 18: {
-            UserId = input.ReadString();
-            break;
-          }
-          case 26: {
-            Role = input.ReadString();
-            break;
-          }
-          case 34: {
-            AccessToken = input.ReadString();
-            break;
-          }
-          case 42: {
-            RefreshToken = input.ReadString();
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-      if ((tag & 7) == 4) {
-        // Abort on any end group tag.
-        return;
-      }
-      switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 8: {
-            IsSuccess = input.ReadBool();
-            break;
-          }
-          case 18: {
-            UserId = input.ReadString();
-            break;
-          }
-          case 26: {
-            Role = input.ReadString();
-            break;
-          }
-          case 34: {
-            AccessToken = input.ReadString();
-            break;
-          }
-          case 42: {
-            RefreshToken = input.ReadString();
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class GrpcUserRefreshTokenResponse : pb::IMessage<GrpcUserRefreshTokenResponse>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<GrpcUserRefreshTokenResponse> _parser = new pb::MessageParser<GrpcUserRefreshTokenResponse>(() => new GrpcUserRefreshTokenResponse());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GrpcUserRefreshTokenResponse> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::AuthService.AuthReflection.Descriptor.MessageTypes[1]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GrpcUserRefreshTokenResponse() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GrpcUserRefreshTokenResponse(GrpcUserRefreshTokenResponse other) : this() {
+    public GrpcAuthResponse(GrpcAuthResponse other) : this() {
       isSuccess_ = other.isSuccess_;
       accessToken_ = other.accessToken_;
       refreshToken_ = other.refreshToken_;
@@ -512,8 +103,8 @@ namespace AuthService {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GrpcUserRefreshTokenResponse Clone() {
-      return new GrpcUserRefreshTokenResponse(this);
+    public GrpcAuthResponse Clone() {
+      return new GrpcAuthResponse(this);
     }
 
     /// <summary>Field number for the "isSuccess" field.</summary>
@@ -583,12 +174,12 @@ namespace AuthService {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as GrpcUserRefreshTokenResponse);
+      return Equals(other as GrpcAuthResponse);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GrpcUserRefreshTokenResponse other) {
+    public bool Equals(GrpcAuthResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -687,7 +278,7 @@ namespace AuthService {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GrpcUserRefreshTokenResponse other) {
+    public void MergeFrom(GrpcAuthResponse other) {
       if (other == null) {
         return;
       }
@@ -770,21 +361,21 @@ namespace AuthService {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class GrpcRefreshTokenResponse : pb::IMessage<GrpcRefreshTokenResponse>
+  public sealed partial class GrpcGetTokenResponse : pb::IMessage<GrpcGetTokenResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<GrpcRefreshTokenResponse> _parser = new pb::MessageParser<GrpcRefreshTokenResponse>(() => new GrpcRefreshTokenResponse());
+    private static readonly pb::MessageParser<GrpcGetTokenResponse> _parser = new pb::MessageParser<GrpcGetTokenResponse>(() => new GrpcGetTokenResponse());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GrpcRefreshTokenResponse> Parser { get { return _parser; } }
+    public static pb::MessageParser<GrpcGetTokenResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::AuthService.AuthReflection.Descriptor.MessageTypes[2]; }
+      get { return global::AuthService.AuthReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -795,7 +386,7 @@ namespace AuthService {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GrpcRefreshTokenResponse() {
+    public GrpcGetTokenResponse() {
       OnConstruction();
     }
 
@@ -803,16 +394,15 @@ namespace AuthService {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GrpcRefreshTokenResponse(GrpcRefreshTokenResponse other) : this() {
+    public GrpcGetTokenResponse(GrpcGetTokenResponse other) : this() {
       userId_ = other.userId_;
-      token_ = other.token_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GrpcRefreshTokenResponse Clone() {
-      return new GrpcRefreshTokenResponse(this);
+    public GrpcGetTokenResponse Clone() {
+      return new GrpcGetTokenResponse(this);
     }
 
     /// <summary>Field number for the "userId" field.</summary>
@@ -841,41 +431,15 @@ namespace AuthService {
       userId_ = null;
     }
 
-    /// <summary>Field number for the "token" field.</summary>
-    public const int TokenFieldNumber = 2;
-    private readonly static string TokenDefaultValue = "";
-
-    private string token_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Token {
-      get { return token_ ?? TokenDefaultValue; }
-      set {
-        token_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-    /// <summary>Gets whether the "token" field is set</summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool HasToken {
-      get { return token_ != null; }
-    }
-    /// <summary>Clears the value of the "token" field</summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void ClearToken() {
-      token_ = null;
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as GrpcRefreshTokenResponse);
+      return Equals(other as GrpcGetTokenResponse);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GrpcRefreshTokenResponse other) {
+    public bool Equals(GrpcGetTokenResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -883,7 +447,6 @@ namespace AuthService {
         return true;
       }
       if (UserId != other.UserId) return false;
-      if (Token != other.Token) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -892,7 +455,6 @@ namespace AuthService {
     public override int GetHashCode() {
       int hash = 1;
       if (HasUserId) hash ^= UserId.GetHashCode();
-      if (HasToken) hash ^= Token.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -915,10 +477,6 @@ namespace AuthService {
         output.WriteRawTag(10);
         output.WriteString(UserId);
       }
-      if (HasToken) {
-        output.WriteRawTag(18);
-        output.WriteString(Token);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -933,10 +491,6 @@ namespace AuthService {
         output.WriteRawTag(10);
         output.WriteString(UserId);
       }
-      if (HasToken) {
-        output.WriteRawTag(18);
-        output.WriteString(Token);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -950,9 +504,6 @@ namespace AuthService {
       if (HasUserId) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(UserId);
       }
-      if (HasToken) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Token);
-      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -961,15 +512,12 @@ namespace AuthService {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GrpcRefreshTokenResponse other) {
+    public void MergeFrom(GrpcGetTokenResponse other) {
       if (other == null) {
         return;
       }
       if (other.HasUserId) {
         UserId = other.UserId;
-      }
-      if (other.HasToken) {
-        Token = other.Token;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -992,10 +540,6 @@ namespace AuthService {
             break;
           case 10: {
             UserId = input.ReadString();
-            break;
-          }
-          case 18: {
-            Token = input.ReadString();
             break;
           }
         }
@@ -1021,10 +565,6 @@ namespace AuthService {
             UserId = input.ReadString();
             break;
           }
-          case 18: {
-            Token = input.ReadString();
-            break;
-          }
         }
       }
     }
@@ -1047,7 +587,7 @@ namespace AuthService {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::AuthService.AuthReflection.Descriptor.MessageTypes[3]; }
+      get { return global::AuthService.AuthReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1068,8 +608,6 @@ namespace AuthService {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public GrpcSessionResponse(GrpcSessionResponse other) : this() {
       isSuccess_ = other.isSuccess_;
-      userId_ = other.userId_;
-      role_ = other.role_;
       accessToken_ = other.accessToken_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -1092,32 +630,8 @@ namespace AuthService {
       }
     }
 
-    /// <summary>Field number for the "userId" field.</summary>
-    public const int UserIdFieldNumber = 2;
-    private string userId_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string UserId {
-      get { return userId_; }
-      set {
-        userId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "role" field.</summary>
-    public const int RoleFieldNumber = 3;
-    private string role_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Role {
-      get { return role_; }
-      set {
-        role_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
     /// <summary>Field number for the "accessToken" field.</summary>
-    public const int AccessTokenFieldNumber = 4;
+    public const int AccessTokenFieldNumber = 2;
     private string accessToken_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1144,8 +658,6 @@ namespace AuthService {
         return true;
       }
       if (IsSuccess != other.IsSuccess) return false;
-      if (UserId != other.UserId) return false;
-      if (Role != other.Role) return false;
       if (AccessToken != other.AccessToken) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -1155,8 +667,6 @@ namespace AuthService {
     public override int GetHashCode() {
       int hash = 1;
       if (IsSuccess != false) hash ^= IsSuccess.GetHashCode();
-      if (UserId.Length != 0) hash ^= UserId.GetHashCode();
-      if (Role.Length != 0) hash ^= Role.GetHashCode();
       if (AccessToken.Length != 0) hash ^= AccessToken.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -1180,16 +690,8 @@ namespace AuthService {
         output.WriteRawTag(8);
         output.WriteBool(IsSuccess);
       }
-      if (UserId.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(UserId);
-      }
-      if (Role.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(Role);
-      }
       if (AccessToken.Length != 0) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(18);
         output.WriteString(AccessToken);
       }
       if (_unknownFields != null) {
@@ -1206,16 +708,8 @@ namespace AuthService {
         output.WriteRawTag(8);
         output.WriteBool(IsSuccess);
       }
-      if (UserId.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(UserId);
-      }
-      if (Role.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(Role);
-      }
       if (AccessToken.Length != 0) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(18);
         output.WriteString(AccessToken);
       }
       if (_unknownFields != null) {
@@ -1230,12 +724,6 @@ namespace AuthService {
       int size = 0;
       if (IsSuccess != false) {
         size += 1 + 1;
-      }
-      if (UserId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(UserId);
-      }
-      if (Role.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Role);
       }
       if (AccessToken.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(AccessToken);
@@ -1254,12 +742,6 @@ namespace AuthService {
       }
       if (other.IsSuccess != false) {
         IsSuccess = other.IsSuccess;
-      }
-      if (other.UserId.Length != 0) {
-        UserId = other.UserId;
-      }
-      if (other.Role.Length != 0) {
-        Role = other.Role;
       }
       if (other.AccessToken.Length != 0) {
         AccessToken = other.AccessToken;
@@ -1288,14 +770,6 @@ namespace AuthService {
             break;
           }
           case 18: {
-            UserId = input.ReadString();
-            break;
-          }
-          case 26: {
-            Role = input.ReadString();
-            break;
-          }
-          case 34: {
             AccessToken = input.ReadString();
             break;
           }
@@ -1323,14 +797,6 @@ namespace AuthService {
             break;
           }
           case 18: {
-            UserId = input.ReadString();
-            break;
-          }
-          case 26: {
-            Role = input.ReadString();
-            break;
-          }
-          case 34: {
             AccessToken = input.ReadString();
             break;
           }
@@ -1356,7 +822,7 @@ namespace AuthService {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::AuthService.AuthReflection.Descriptor.MessageTypes[4]; }
+      get { return global::AuthService.AuthReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1591,7 +1057,7 @@ namespace AuthService {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::AuthService.AuthReflection.Descriptor.MessageTypes[5]; }
+      get { return global::AuthService.AuthReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1612,7 +1078,7 @@ namespace AuthService {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public GrpcRefreshTokenRequest(GrpcRefreshTokenRequest other) : this() {
       userId_ = other.userId_;
-      token_ = other.token_;
+      refreshToken_ = other.refreshToken_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1634,15 +1100,15 @@ namespace AuthService {
       }
     }
 
-    /// <summary>Field number for the "token" field.</summary>
-    public const int TokenFieldNumber = 2;
-    private string token_ = "";
+    /// <summary>Field number for the "refreshToken" field.</summary>
+    public const int RefreshTokenFieldNumber = 2;
+    private string refreshToken_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Token {
-      get { return token_; }
+    public string RefreshToken {
+      get { return refreshToken_; }
       set {
-        token_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        refreshToken_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -1662,7 +1128,7 @@ namespace AuthService {
         return true;
       }
       if (UserId != other.UserId) return false;
-      if (Token != other.Token) return false;
+      if (RefreshToken != other.RefreshToken) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1671,7 +1137,7 @@ namespace AuthService {
     public override int GetHashCode() {
       int hash = 1;
       if (UserId.Length != 0) hash ^= UserId.GetHashCode();
-      if (Token.Length != 0) hash ^= Token.GetHashCode();
+      if (RefreshToken.Length != 0) hash ^= RefreshToken.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1694,9 +1160,9 @@ namespace AuthService {
         output.WriteRawTag(10);
         output.WriteString(UserId);
       }
-      if (Token.Length != 0) {
+      if (RefreshToken.Length != 0) {
         output.WriteRawTag(18);
-        output.WriteString(Token);
+        output.WriteString(RefreshToken);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1712,9 +1178,9 @@ namespace AuthService {
         output.WriteRawTag(10);
         output.WriteString(UserId);
       }
-      if (Token.Length != 0) {
+      if (RefreshToken.Length != 0) {
         output.WriteRawTag(18);
-        output.WriteString(Token);
+        output.WriteString(RefreshToken);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -1729,8 +1195,8 @@ namespace AuthService {
       if (UserId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(UserId);
       }
-      if (Token.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Token);
+      if (RefreshToken.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(RefreshToken);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1747,8 +1213,8 @@ namespace AuthService {
       if (other.UserId.Length != 0) {
         UserId = other.UserId;
       }
-      if (other.Token.Length != 0) {
-        Token = other.Token;
+      if (other.RefreshToken.Length != 0) {
+        RefreshToken = other.RefreshToken;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1774,7 +1240,7 @@ namespace AuthService {
             break;
           }
           case 18: {
-            Token = input.ReadString();
+            RefreshToken = input.ReadString();
             break;
           }
         }
@@ -1801,7 +1267,7 @@ namespace AuthService {
             break;
           }
           case 18: {
-            Token = input.ReadString();
+            RefreshToken = input.ReadString();
             break;
           }
         }
@@ -1826,7 +1292,7 @@ namespace AuthService {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::AuthService.AuthReflection.Descriptor.MessageTypes[6]; }
+      get { return global::AuthService.AuthReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1846,7 +1312,7 @@ namespace AuthService {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public GrpcTokenRequest(GrpcTokenRequest other) : this() {
-      token_ = other.token_;
+      refreshToken_ = other.refreshToken_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1856,15 +1322,15 @@ namespace AuthService {
       return new GrpcTokenRequest(this);
     }
 
-    /// <summary>Field number for the "token" field.</summary>
-    public const int TokenFieldNumber = 1;
-    private string token_ = "";
+    /// <summary>Field number for the "refreshToken" field.</summary>
+    public const int RefreshTokenFieldNumber = 1;
+    private string refreshToken_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Token {
-      get { return token_; }
+    public string RefreshToken {
+      get { return refreshToken_; }
       set {
-        token_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        refreshToken_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -1883,7 +1349,7 @@ namespace AuthService {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Token != other.Token) return false;
+      if (RefreshToken != other.RefreshToken) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1891,7 +1357,7 @@ namespace AuthService {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Token.Length != 0) hash ^= Token.GetHashCode();
+      if (RefreshToken.Length != 0) hash ^= RefreshToken.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1910,9 +1376,9 @@ namespace AuthService {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Token.Length != 0) {
+      if (RefreshToken.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(Token);
+        output.WriteString(RefreshToken);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1924,9 +1390,9 @@ namespace AuthService {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Token.Length != 0) {
+      if (RefreshToken.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(Token);
+        output.WriteString(RefreshToken);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -1938,8 +1404,8 @@ namespace AuthService {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Token.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Token);
+      if (RefreshToken.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(RefreshToken);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1953,8 +1419,8 @@ namespace AuthService {
       if (other == null) {
         return;
       }
-      if (other.Token.Length != 0) {
-        Token = other.Token;
+      if (other.RefreshToken.Length != 0) {
+        RefreshToken = other.RefreshToken;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1976,7 +1442,7 @@ namespace AuthService {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            Token = input.ReadString();
+            RefreshToken = input.ReadString();
             break;
           }
         }
@@ -1999,7 +1465,7 @@ namespace AuthService {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            Token = input.ReadString();
+            RefreshToken = input.ReadString();
             break;
           }
         }
@@ -2024,7 +1490,7 @@ namespace AuthService {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::AuthService.AuthReflection.Descriptor.MessageTypes[7]; }
+      get { return global::AuthService.AuthReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

@@ -9,7 +9,7 @@ public class AuthGrpcService(IUserHandler userHandler, ILogger<AuthGrpcService> 
     private readonly IUserHandler _userHandler = userHandler;
     private readonly ILogger<AuthGrpcService> _logger = logger;
 
-    public override async Task<GrpcSignInResponse> SignIn(GrpcAuthRequest request, ServerCallContext context)
+    public override async Task<GrpcAuthResponse> SignIn(GrpcAuthRequest request, ServerCallContext context)
     {
         try
         {
@@ -21,11 +21,9 @@ public class AuthGrpcService(IUserHandler userHandler, ILogger<AuthGrpcService> 
 
             var result = await _userHandler.SignIn(parameter, context.CancellationToken);
 
-            var protoResponse = new GrpcSignInResponse
+            var protoResponse = new GrpcAuthResponse
             {
                 IsSuccess = result.IsSuccess,
-                UserId = result.UserId.ToString() ?? "",
-                Role = result.Role ?? "",
                 AccessToken = result.AccessToken ?? "",
                 RefreshToken = result.RefreshToken ?? ""
             };
@@ -39,7 +37,7 @@ public class AuthGrpcService(IUserHandler userHandler, ILogger<AuthGrpcService> 
         }
     }
 
-    public override async Task<GrpcUserRefreshTokenResponse> RefreshToken(GrpcRefreshTokenRequest request, ServerCallContext context)
+    public override async Task<GrpcAuthResponse> RefreshToken(GrpcRefreshTokenRequest request, ServerCallContext context)
     {
         try
         {
@@ -53,12 +51,12 @@ public class AuthGrpcService(IUserHandler userHandler, ILogger<AuthGrpcService> 
             var parameter = new RefreshTokenRequest
             (
                 userId,
-                request.Token
+                request.RefreshToken
             );
 
             var result = await _userHandler.RefreshToken(parameter, context.CancellationToken);
 
-            var protoResponse = new GrpcUserRefreshTokenResponse
+            var protoResponse = new GrpcAuthResponse
             {
                 IsSuccess = result.IsSuccess,
                 AccessToken = result.AccessToken ?? "",
@@ -74,16 +72,15 @@ public class AuthGrpcService(IUserHandler userHandler, ILogger<AuthGrpcService> 
         }
     }
 
-    public override async Task<GrpcRefreshTokenResponse> GetValidRefreshToken(GrpcTokenRequest request, ServerCallContext context)
+    public override async Task<GrpcGetTokenResponse> GetValidRefreshToken(GrpcTokenRequest request, ServerCallContext context)
     {
         try
         {
-            var result = await _userHandler.GetValidRefreshToken(request.Token, context.CancellationToken) ?? throw new RpcException(new Status(StatusCode.InvalidArgument, "token is null"));
+            var result = await _userHandler.GetValidRefreshToken(request.RefreshToken, context.CancellationToken) ?? throw new RpcException(new Status(StatusCode.InvalidArgument, "token is null"));
 
-            var protoResponse = new GrpcRefreshTokenResponse
+            var protoResponse = new GrpcGetTokenResponse
             {
-                UserId = result.UserId.ToString() ?? "",
-                Token = result.Token ?? ""
+                UserId = result.UserId.ToString()
             };
 
             return protoResponse;
@@ -99,7 +96,7 @@ public class AuthGrpcService(IUserHandler userHandler, ILogger<AuthGrpcService> 
     {
         try
         {
-            await _userHandler.RevokeRefreshToken(request.Token, context.CancellationToken);
+            await _userHandler.RevokeRefreshToken(request.RefreshToken, context.CancellationToken);
 
             return new Google.Protobuf.WellKnownTypes.Empty();
         }
@@ -126,8 +123,6 @@ public class AuthGrpcService(IUserHandler userHandler, ILogger<AuthGrpcService> 
             var protoResponse = new GrpcSessionResponse
             {
                 IsSuccess = result.IsSuccess,
-                UserId = result.UserId.ToString() ?? "",
-                Role = result.Role ?? "",
                 AccessToken = result.AccessToken ?? ""
             };
 

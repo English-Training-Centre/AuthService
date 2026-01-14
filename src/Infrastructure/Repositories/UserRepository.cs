@@ -10,18 +10,17 @@ public sealed class UserRepository(IPostgresDB db, ILogger<UserRepository> logge
     private readonly IPostgresDB _db = db;
     private readonly ILogger<UserRepository> _logger = logger;
 
-    public async Task<RefreshTokenResponse?> GetValidRefreshToken(string token, CancellationToken ct)
+    public async Task<GetTokenResponse?> GetValidRefreshToken(string refreshToken, CancellationToken ct)
     {
-        const string sql = @"SELECT
-                user_id AS UserId, 
-                token AS Token
-            FROM tbRefreshToken 
-            WHERE token = @Token 
-                AND revoked_at IS NULL 
-                AND expires_at > NOW();";
+        const string sql = @"SELECT user_id AS UserId
+        FROM tbRefreshToken 
+        WHERE refresh_token = @RefreshToken 
+            AND revoked_at IS NULL 
+            AND expires_at > NOW();";
+
         try
         {
-            return await _db.QueryFirstOrDefaultAsync<RefreshTokenResponse>(sql, new { Token = token }, ct);
+            return await _db.QueryFirstOrDefaultAsync<GetTokenResponse?>(sql, new { RefreshToken = refreshToken }, ct);
         }
         catch (PostgresException pgEx)
         {
@@ -35,13 +34,13 @@ public sealed class UserRepository(IPostgresDB db, ILogger<UserRepository> logge
         }
     }
 
-    public async Task<int> RevokeRefreshToken(string token, CancellationToken ct)
+    public async Task<int> RevokeRefreshToken(string refreshToken, CancellationToken ct)
     {
         try
         {
-            const string sql = @"UPDATE tbRefreshToken SET revoked_at = NOW() WHERE token = @Token;";
+            const string sql = @"UPDATE tbRefreshToken SET revoked_at = NOW() WHERE refresh_token = @RefreshToken;";
 
-            var result = await _db.ExecuteAsync(sql, new { Token = token }, ct);
+            var result = await _db.ExecuteAsync(sql, new { RefreshToken = refreshToken }, ct);
 
             return result == 0
                 ? 0
@@ -63,7 +62,7 @@ public sealed class UserRepository(IPostgresDB db, ILogger<UserRepository> logge
     {
         try
         {
-            const string sql = @"INSERT INTO tbRefreshToken (user_id, token) VALUES (@UserId, @Token);";
+            const string sql = @"INSERT INTO tbRefreshToken (user_id, refresh_token) VALUES (@UserId, @RefreshToken);";
 
             var result = await _db.ExecuteAsync(sql, request, ct);
 

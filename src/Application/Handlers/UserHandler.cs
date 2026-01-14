@@ -16,7 +16,7 @@ public sealed class UserHandler(IUserRepository userRepository, IUserGrpcService
     private readonly ILogger<UserHandler> _logger = logger;
     private readonly IConfiguration _config = config;
 
-    public async Task<SignInResponse> SignIn(UserAuthRequest request, CancellationToken ct)
+    public async Task<AuthResponse> SignIn(UserAuthRequest request, CancellationToken ct)
     {
         try
         {
@@ -24,8 +24,8 @@ public sealed class UserHandler(IUserRepository userRepository, IUserGrpcService
 
             if (result.IsSuccess == false || result.UserId is null || result.Username is null || result.Role is null)
             {
-                _logger.LogWarning($"SignIn Warning... Something is null\nIsSuccess: {result.IsSuccess}\nUserId: {result.UserId}\nUsername: {request.Username}\nRole: {result.Role}");
-                return SignInResponse.Failure();
+                _logger.LogInformation($"Invalid credentials.");
+                return AuthResponse.Failure();
             }
 
             var tokenRequest = new GenerateTokenRequest
@@ -38,11 +38,9 @@ public sealed class UserHandler(IUserRepository userRepository, IUserGrpcService
             var accessToken = GenerateAccessToken(tokenRequest);
             var refreshToken = await GenerateRefreshToken(tokenRequest.UserId, ct);
 
-            return new SignInResponse
+            return new AuthResponse
             {
                 IsSuccess = result.IsSuccess,
-                UserId = tokenRequest.UserId,
-                Role = tokenRequest.Role,
                 AccessToken = accessToken,
                 RefreshToken = refreshToken
             };
@@ -50,21 +48,21 @@ public sealed class UserHandler(IUserRepository userRepository, IUserGrpcService
         catch (InvalidOperationException ex)
         {
             _logger.LogError(ex, "Error 503");
-            return SignInResponse.Failure();
+            return AuthResponse.Failure();
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, " - Unexpected Error");
-            return SignInResponse.Failure();
+            return AuthResponse.Failure();
         }
     }
 
-    public async Task<UserRefreshTokenResponse> RefreshToken(RefreshTokenRequest request, CancellationToken ct)
+    public async Task<AuthResponse> RefreshToken(RefreshTokenRequest request, CancellationToken ct)
     {
         try
         {
             var result = await _userGrpcServiceClient.GetAuthByIdAsync(request.UserId, ct);
-            if (result.IsSuccess == false || result.UserId is null || result.Username is null || result.Role is null) { return UserRefreshTokenResponse.Failure(); }
+            if (result.IsSuccess == false || result.UserId is null || result.Username is null || result.Role is null) { return AuthResponse.Failure(); }
 
             var tokenRequest = new GenerateTokenRequest
             {
@@ -76,9 +74,9 @@ public sealed class UserHandler(IUserRepository userRepository, IUserGrpcService
             var newAccessToken = GenerateAccessToken(tokenRequest);
             var newRefreshToken = await GenerateRefreshToken(tokenRequest.UserId, ct);
 
-            await RevokeRefreshToken(request.Token, ct);
+            await RevokeRefreshToken(request.RefreshToken, ct);
 
-            return new UserRefreshTokenResponse
+            return new AuthResponse
             {
                 IsSuccess = result.IsSuccess,
                 AccessToken = newAccessToken,
@@ -87,8 +85,8 @@ public sealed class UserHandler(IUserRepository userRepository, IUserGrpcService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Session expired. Please sign in again.");
-            return UserRefreshTokenResponse.Failure();
+            _logger.LogError(ex, "Error: UserHandler -> RefreshTokn(....)");
+            return AuthResponse.Failure();
         }
     }
 
@@ -112,8 +110,6 @@ public sealed class UserHandler(IUserRepository userRepository, IUserGrpcService
             return new CheckSessionResponse
             {
                 IsSuccess = result.IsSuccess,
-                UserId = tokenRequest.UserId,
-                Role = tokenRequest.Role,
                 AccessToken = newAccessToken
             };
         }
@@ -143,7 +139,7 @@ public sealed class UserHandler(IUserRepository userRepository, IUserGrpcService
                 issuer: _config["JWTSettings:validIssuer"],
                 audience: _config["JWTSettings:validAudience"],
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(30),
+                expires: DateTime.UtcNow.AddMinutes(15),
                 signingCredentials: creds
             );
 
@@ -162,16 +158,16 @@ public sealed class UserHandler(IUserRepository userRepository, IUserGrpcService
         try
         {
             var randomBytes = RandomNumberGenerator.GetBytes(64);
-            var token = Convert.ToBase64String(randomBytes);
+            var refreshToken = Convert.ToBase64String(randomBytes);
 
-            var newToken = new RefreshTokenRequest
+            var newRefreshToken = new RefreshTokenRequest
             (
                 userId,
-                token
+                refreshToken
             );
 
-            await _userRepository.SaveRefreshToken(newToken, ct);
-            return token;
+            await _userRepository.SaveRefreshToken(newRefreshToken, ct);
+            return refreshToken;
         }
         catch (Exception ex)
         {
@@ -180,17 +176,17 @@ public sealed class UserHandler(IUserRepository userRepository, IUserGrpcService
         }
     }
 
-    public async Task<RefreshTokenResponse?> GetValidRefreshToken(string token, CancellationToken ct)
+    public async Task<GetTokenResponse?> GetValidRefreshToken(string refreshToken, CancellationToken ct)
     {
-        if (token is null) return null;
+        if (refreshToken is null) return null;
 
-        return await _userRepository.GetValidRefreshToken(token, ct);
+        return await _userRepository.GetValidRefreshToken(refreshToken, ct);
     }
 
-    public async Task RevokeRefreshToken(string token, CancellationToken ct)
+    public async Task RevokeRefreshToken(string refreshToken, CancellationToken ct)
     {
-        if (token is null) return;
+        if (refreshToken is null) return;
 
-        await _userRepository.RevokeRefreshToken(token, ct);
+        await _userRepository.RevokeRefreshToken(refreshToken, ct);
     }
 }

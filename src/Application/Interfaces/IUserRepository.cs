@@ -5,7 +5,7 @@ namespace AuthService.src.Application.Interfaces;
 
 public interface IUserRepository
 {
-    Task<RefreshTokenResponse?> GetValidRefreshToken(string token, CancellationToken ct);
-    Task<int> RevokeRefreshToken(string token, CancellationToken ct);
+    Task<GetTokenResponse?> GetValidRefreshToken(string refreshToken, CancellationToken ct);
+    Task<int> RevokeRefreshToken(string refreshToken, CancellationToken ct);
     Task<int> SaveRefreshToken(RefreshTokenRequest request, CancellationToken ct);
 }
