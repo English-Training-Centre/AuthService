@@ -1,6 +1,6 @@
 /*
 powered by  : (c) 2025, Ramadan Ismael - All rights reserved!!
-to          : ETC - User Service
+to          : ETC - Auth Service
 */
 
 -- sudo -u postgres psql
@@ -19,6 +19,8 @@ CREATE TABLE IF NOT EXISTS tbRefreshToken
     created_at TIMESTAMPTZ DEFAULT NOW(),
     revoked_at TIMESTAMPTZ
 );
+CREATE INDEX tbrefreshtoken_user_id ON tbRefreshToken(user_id);
+CREATE INDEX tbrefreshtoken_token ON tbRefreshToken(refresh_token);
 -- REFRESH TOKEN
 
 -- QUERIES
