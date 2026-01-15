@@ -53,7 +53,7 @@ public sealed class UserHandler(IUserRepository userRepository, IUserGrpcService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, " - Unexpected Error");
+            _logger.LogError(ex, " - An unexpected error occurred...");
             return AuthResponse.Failure();
         }
     }

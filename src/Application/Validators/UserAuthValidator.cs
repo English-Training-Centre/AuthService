@@ -9,18 +9,10 @@ public sealed class UserAuthValidator : AbstractValidator<UserAuthRequest>
     {
         RuleFor(u => u.Username)
             .NotEmpty()
-            .WithMessage("Username is required.")
-            .NotNull()
-            .WithMessage("Username is required.")
-            .Length(3, 25)
-            .WithMessage("Username must be between 3 and 25 characters.");
+            .Length(3, 25);
 
         RuleFor(u => u.Password)
             .NotEmpty()
-            .WithMessage("Password is required.")
-            .NotNull()
-            .WithMessage("Passowrd is required.")
-            .MinimumLength(9)
-            .WithMessage("Password must be at least 9 characters");
+            .MinimumLength(9);
     }
 }

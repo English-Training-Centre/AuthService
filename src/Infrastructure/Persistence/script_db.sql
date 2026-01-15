@@ -27,5 +27,12 @@ CREATE INDEX tbrefreshtoken_token ON tbRefreshToken(refresh_token);
 DROP TABLE tbRefreshToken;
 SELECT * FROM tbRefreshToken;
 
-INSERT INTO tbrefreshtoken(user_id, token) VALUES('a96d7938-84af-4ff0-81aa-3f5cdbadcdf1', 'token code......');
+INSERT INTO tbrefreshtoken(user_id, refresh_token) VALUES('692e2d00-b2e5-4a62-9bf6-703d386a3b70', 'token code......');
+
+SELECT user_id AS UserId
+        FROM tbRefreshToken 
+        WHERE refresh_token = 'token code......'
+            AND revoked_at IS NULL 
+            AND expires_at > NOW()
+            LIMIT 1;
 -- QUERIES

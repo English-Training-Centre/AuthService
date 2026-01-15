@@ -23,7 +23,7 @@ public sealed class UserGrpcServiceClient(UsersAuthGrpc.UsersAuthGrpcClient clie
         try
         {
             grpcResponse = await _client.AuthAsync(grpcRequest, new CallOptions(
-                deadline: DateTime.UtcNow.AddSeconds(3),
+                deadline: DateTime.UtcNow.AddSeconds(10),
                 cancellationToken: ct
             ));
         }
@@ -47,7 +47,7 @@ public sealed class UserGrpcServiceClient(UsersAuthGrpc.UsersAuthGrpcClient clie
         try
         {
             grpcResponse = await _client.GetAuthByIdAsync(grpcRequest, new CallOptions(
-                deadline: DateTime.UtcNow.AddSeconds(3),
+                deadline: DateTime.UtcNow.AddSeconds(10),
                 cancellationToken: ct
             ));
         }

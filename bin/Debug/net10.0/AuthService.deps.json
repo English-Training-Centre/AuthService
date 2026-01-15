@@ -13,8 +13,8 @@
           "FluentValidation.AspNetCore": "11.3.1",
           "FluentValidation.DependencyInjectionExtensions": "12.1.1",
           "Grpc.AspNetCore": "2.76.0",
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "10.0.1",
-          "Microsoft.Extensions.Http.Polly": "10.0.1",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "10.0.2",
+          "Microsoft.Extensions.Http.Polly": "10.0.2",
           "Npgsql": "10.0.1",
           "Polly": "8.6.5"
         },
@@ -150,26 +150,26 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Authentication.JwtBearer/10.0.1": {
+      "Microsoft.AspNetCore.Authentication.JwtBearer/10.0.2": {
         "dependencies": {
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "8.0.1"
         },
         "runtime": {
           "lib/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
-            "assemblyVersion": "10.0.1.0",
-            "fileVersion": "10.0.125.57005"
+            "assemblyVersion": "10.0.2.0",
+            "fileVersion": "10.0.225.61305"
           }
         }
       },
-      "Microsoft.Extensions.Http.Polly/10.0.1": {
+      "Microsoft.Extensions.Http.Polly/10.0.2": {
         "dependencies": {
           "Polly": "8.6.5",
           "Polly.Extensions.Http": "3.0.0"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.Http.Polly.dll": {
-            "assemblyVersion": "10.0.1.0",
-            "fileVersion": "10.0.125.57005"
+            "assemblyVersion": "10.0.2.0",
+            "fileVersion": "10.0.225.61305"
           }
         }
       },
@@ -386,19 +386,19 @@
       "path": "grpc.net.common/2.76.0",
       "hashPath": "grpc.net.common.2.76.0.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Authentication.JwtBearer/10.0.1": {
+    "Microsoft.AspNetCore.Authentication.JwtBearer/10.0.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-lvyUEBVv7V1/UvGxfOV3a0kyaQatPAU+ZHru7xha6WVOpa+7aJtKehbiu9VpAt/G50FR+hUwL4nTY33ijsCXwA==",
-      "path": "microsoft.aspnetcore.authentication.jwtbearer/10.0.1",
-      "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.10.0.1.nupkg.sha512"
+      "sha512": "sha512-UJGH1qpJgNSmDcAQQRtdUY/auztO+EJK4HHz3akdneWQ+3ladiLEMJeZOqjYiMcPf/h+MSAQq+xij+7umi7VXQ==",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/10.0.2",
+      "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.10.0.2.nupkg.sha512"
     },
-    "Microsoft.Extensions.Http.Polly/10.0.1": {
+    "Microsoft.Extensions.Http.Polly/10.0.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-J7xjjT+r6qxDcID37DJE6n45sReV43hOE/d87AnNJX5UPTv2qxKWGAyoKG3cjO1p0UCPhOVf6zlPIriDyJmNrQ==",
-      "path": "microsoft.extensions.http.polly/10.0.1",
-      "hashPath": "microsoft.extensions.http.polly.10.0.1.nupkg.sha512"
+      "sha512": "sha512-yYBiTVpKzZaTEFp2FHVGT3AQCUq3vSBEy9iwCg8LCA0wq8ZP4dVwoCnKtTMoN2khehMHIFifLGyhuW8sID/DpQ==",
+      "path": "microsoft.extensions.http.polly/10.0.2",
+      "hashPath": "microsoft.extensions.http.polly.10.0.2.nupkg.sha512"
     },
     "Microsoft.IdentityModel.Abstractions/8.0.1": {
       "type": "package",

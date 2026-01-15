@@ -4,7 +4,7 @@ using Grpc.Core;
 
 namespace AuthService.Services;
 
-public class AuthGrpcService(IUserHandler userHandler, ILogger<AuthGrpcService> logger) : AuthGrpc.AuthGrpcBase
+public sealed class AuthGrpcService(IUserHandler userHandler, ILogger<AuthGrpcService> logger) : AuthGrpc.AuthGrpcBase
 {
     private readonly IUserHandler _userHandler = userHandler;
     private readonly ILogger<AuthGrpcService> _logger = logger;
@@ -32,7 +32,7 @@ public class AuthGrpcService(IUserHandler userHandler, ILogger<AuthGrpcService> 
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error in SignIn");
+            _logger.LogError(ex, "Error: AuthGrpcService -> SignIn(....)");
             throw new RpcException(new Status(StatusCode.Internal, "Failed to SignIn"));
         }
     }
@@ -67,7 +67,7 @@ public class AuthGrpcService(IUserHandler userHandler, ILogger<AuthGrpcService> 
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error in RefreshToken");
+            _logger.LogError(ex, "Error: AuthGrpcService -> RefreshTokn(....)");
             throw new RpcException(new Status(StatusCode.Internal, "Failed to RefreshToken"));
         }
     }
@@ -87,7 +87,7 @@ public class AuthGrpcService(IUserHandler userHandler, ILogger<AuthGrpcService> 
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error in GetValidRefreshToken");
+            _logger.LogError(ex, "Error: AuthGrpcService -> GetValidRefreshToken(....)");
             throw new RpcException(new Status(StatusCode.Internal, "Failed to GetValidRefreshToken"));
         }
     }
@@ -130,7 +130,7 @@ public class AuthGrpcService(IUserHandler userHandler, ILogger<AuthGrpcService> 
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error in CheckSession");
+            _logger.LogError(ex, "Error: AuthGrpcService -> CheckSession(....)");
             throw new RpcException(new Status(StatusCode.Internal, "Failed to CheckSession"));
         }
     }

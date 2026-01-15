@@ -16,7 +16,8 @@ public sealed class UserRepository(IPostgresDB db, ILogger<UserRepository> logge
         FROM tbRefreshToken 
         WHERE refresh_token = @RefreshToken 
             AND revoked_at IS NULL 
-            AND expires_at > NOW();";
+            AND expires_at > NOW()
+            LIMIT 1;";
 
         try
         {

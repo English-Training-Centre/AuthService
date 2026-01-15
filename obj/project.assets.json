@@ -214,7 +214,7 @@
           "build/Grpc.Tools.targets": {}
         }
       },
-      "Microsoft.AspNetCore.Authentication.JwtBearer/10.0.1": {
+      "Microsoft.AspNetCore.Authentication.JwtBearer/10.0.2": {
         "type": "package",
         "dependencies": {
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "8.0.1"
@@ -233,7 +233,7 @@
           "Microsoft.AspNetCore.App"
         ]
       },
-      "Microsoft.Extensions.Http.Polly/10.0.1": {
+      "Microsoft.Extensions.Http.Polly/10.0.2": {
         "type": "package",
         "dependencies": {
           "Polly": "7.2.4",
@@ -746,10 +746,10 @@
         "tools/windows_x86/protoc.exe"
       ]
     },
-    "Microsoft.AspNetCore.Authentication.JwtBearer/10.0.1": {
-      "sha512": "lvyUEBVv7V1/UvGxfOV3a0kyaQatPAU+ZHru7xha6WVOpa+7aJtKehbiu9VpAt/G50FR+hUwL4nTY33ijsCXwA==",
+    "Microsoft.AspNetCore.Authentication.JwtBearer/10.0.2": {
+      "sha512": "UJGH1qpJgNSmDcAQQRtdUY/auztO+EJK4HHz3akdneWQ+3ladiLEMJeZOqjYiMcPf/h+MSAQq+xij+7umi7VXQ==",
       "type": "package",
-      "path": "microsoft.aspnetcore.authentication.jwtbearer/10.0.1",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/10.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -758,14 +758,14 @@
         "THIRD-PARTY-NOTICES.TXT",
         "lib/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll",
         "lib/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.xml",
-        "microsoft.aspnetcore.authentication.jwtbearer.10.0.1.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.jwtbearer.10.0.2.nupkg.sha512",
         "microsoft.aspnetcore.authentication.jwtbearer.nuspec"
       ]
     },
-    "Microsoft.Extensions.Http.Polly/10.0.1": {
-      "sha512": "J7xjjT+r6qxDcID37DJE6n45sReV43hOE/d87AnNJX5UPTv2qxKWGAyoKG3cjO1p0UCPhOVf6zlPIriDyJmNrQ==",
+    "Microsoft.Extensions.Http.Polly/10.0.2": {
+      "sha512": "yYBiTVpKzZaTEFp2FHVGT3AQCUq3vSBEy9iwCg8LCA0wq8ZP4dVwoCnKtTMoN2khehMHIFifLGyhuW8sID/DpQ==",
       "type": "package",
-      "path": "microsoft.extensions.http.polly/10.0.1",
+      "path": "microsoft.extensions.http.polly/10.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -774,7 +774,7 @@
         "THIRD-PARTY-NOTICES.TXT",
         "lib/netstandard2.0/Microsoft.Extensions.Http.Polly.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Http.Polly.xml",
-        "microsoft.extensions.http.polly.10.0.1.nupkg.sha512",
+        "microsoft.extensions.http.polly.10.0.2.nupkg.sha512",
         "microsoft.extensions.http.polly.nuspec"
       ]
     },
@@ -1036,8 +1036,8 @@
       "FluentValidation.AspNetCore >= 11.3.1",
       "FluentValidation.DependencyInjectionExtensions >= 12.1.1",
       "Grpc.AspNetCore >= 2.76.0",
-      "Microsoft.AspNetCore.Authentication.JwtBearer >= 10.0.1",
-      "Microsoft.Extensions.Http.Polly >= 10.0.1",
+      "Microsoft.AspNetCore.Authentication.JwtBearer >= 10.0.2",
+      "Microsoft.Extensions.Http.Polly >= 10.0.2",
       "Npgsql >= 10.0.1",
       "Polly >= 8.6.5"
     ]
@@ -1107,11 +1107,11 @@
           },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
-            "version": "[10.0.1, )"
+            "version": "[10.0.2, )"
           },
           "Microsoft.Extensions.Http.Polly": {
             "target": "Package",
-            "version": "[10.0.1, )"
+            "version": "[10.0.2, )"
           },
           "Npgsql": {
             "target": "Package",

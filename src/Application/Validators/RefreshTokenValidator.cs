@@ -8,15 +8,9 @@ public sealed class RefreshTokenValidator : AbstractValidator<RefreshTokenReques
     public RefreshTokenValidator()
     {
         RuleFor(u => u.UserId)
-            .NotEmpty()
-            .WithMessage("User ID is required.")
-            .NotNull()
-            .WithMessage("User ID is required.");
+            .NotEmpty();
 
         RuleFor(u => u.RefreshToken)
-            .NotEmpty()
-            .WithMessage("Refresh Token is required.")
-            .NotNull()
-            .WithMessage("Refresh Token is required.");
+            .NotEmpty();
     }
 }
