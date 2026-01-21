@@ -22,17 +22,3 @@ CREATE TABLE IF NOT EXISTS tbRefreshToken
 CREATE INDEX tbrefreshtoken_user_id ON tbRefreshToken(user_id);
 CREATE INDEX tbrefreshtoken_token ON tbRefreshToken(refresh_token);
 -- REFRESH TOKEN
-
--- QUERIES
-DROP TABLE tbRefreshToken;
-SELECT * FROM tbRefreshToken;
-
-INSERT INTO tbrefreshtoken(user_id, refresh_token) VALUES('692e2d00-b2e5-4a62-9bf6-703d386a3b70', 'token code......');
-
-SELECT user_id AS UserId
-        FROM tbRefreshToken 
-        WHERE refresh_token = 'token code......'
-            AND revoked_at IS NULL 
-            AND expires_at > NOW()
-            LIMIT 1;
--- QUERIES
