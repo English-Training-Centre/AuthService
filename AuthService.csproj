@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <Protobuf Include="Protos\auth.proto" GrpcServices="Server" />
-    <Protobuf Include="../UserService/Protos/users.auth.proto" GrpcServices="Client" />
+    <ProjectReference Include="..\Libs.Core.Internal\Libs.Core.Internal.csproj" />
   </ItemGroup>
 
   <ItemGroup>

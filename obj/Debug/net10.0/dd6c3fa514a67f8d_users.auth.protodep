@@ -1,2 +1,0 @@
-obj/Debug/net10.0/Users.authGrpc.cs \
-obj/Debug/net10.0/UsersAuth.cs: ../UserService/Protos/users.auth.proto

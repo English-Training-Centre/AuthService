@@ -1,3 +1,3 @@
-namespace AuthService.src.Application.DTOs.Queries;
+namespace AuthService.src.Application.DTOs.Responses;
 
 public sealed record GetTokenResponse ( Guid UserId );

@@ -1,5 +1,5 @@
-using AuthService.src.Application.DTOs.Commands;
-using AuthService.src.Application.DTOs.Queries;
+using AuthService.src.Application.DTOs.Requests;
+using AuthService.src.Application.DTOs.Responses;
 using AuthService.src.Application.Interfaces;
 using Npgsql;
 

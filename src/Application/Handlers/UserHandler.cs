@@ -2,17 +2,19 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using AuthService.src.Application.DTOs.Commands;
-using AuthService.src.Application.DTOs.Queries;
+using AuthService.src.Application.DTOs.Requests;
+using AuthService.src.Application.DTOs.Responses;
 using AuthService.src.Application.Interfaces;
+using Libs.Core.Internal.src.DTOs.Requests;
+using Libs.Core.Internal.src.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 
 namespace AuthService.src.Application.Handlers;
 
-public sealed class UserHandler(IUserRepository userRepository, IUserGrpcServiceClient userGrpcServiceClient, ILogger<UserHandler> logger, IConfiguration config) : IUserHandler
+public sealed class UserHandler(IUserRepository userRepository, IUserAuthGrpcService userGrpcServiceClient, ILogger<UserHandler> logger, IConfiguration config) : IUserHandler
 {
     private readonly IUserRepository _userRepository = userRepository;
-    private readonly IUserGrpcServiceClient _userGrpcServiceClient = userGrpcServiceClient;
+    private readonly IUserAuthGrpcService _userGrpcServiceClient = userGrpcServiceClient;
     private readonly ILogger<UserHandler> _logger = logger;
     private readonly IConfiguration _config = config;
 
@@ -20,7 +22,7 @@ public sealed class UserHandler(IUserRepository userRepository, IUserGrpcService
     {
         try
         {
-            var result = await _userGrpcServiceClient.AuthAsync(request, ct);
+            var result = await _userGrpcServiceClient.UserAuthAsync(request, ct);
 
             if (result.IsSuccess == false || result.UserId is null || result.FullName is null || result.Username is null || result.Role is null)
             {
@@ -62,7 +64,7 @@ public sealed class UserHandler(IUserRepository userRepository, IUserGrpcService
     {
         try
         {
-            var result = await _userGrpcServiceClient.GetAuthByIdAsync(request.UserId, ct);
+            var result = await _userGrpcServiceClient.GetUserAuthByIdAsync(request.UserId, ct);
             if (result.IsSuccess == false || result.UserId is null || result.FullName is null || result.Username is null || result.Role is null) { return AuthResponse.Failure(); }
 
             var tokenRequest = new GenerateTokenRequest
@@ -96,7 +98,7 @@ public sealed class UserHandler(IUserRepository userRepository, IUserGrpcService
     {
         try
         {
-            var result = await _userGrpcServiceClient.GetAuthByIdAsync(userId, ct);
+            var result = await _userGrpcServiceClient.GetUserAuthByIdAsync(userId, ct);
 
             if (result.IsSuccess == false || result.UserId is null || result.FullName is null || result.Username is null || result.Role is null) { return CheckSessionResponse.Failure(); }
 

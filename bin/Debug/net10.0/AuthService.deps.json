@@ -13,6 +13,7 @@
           "FluentValidation.AspNetCore": "11.3.1",
           "FluentValidation.DependencyInjectionExtensions": "12.1.1",
           "Grpc.AspNetCore": "2.76.0",
+          "Libs.Core.Internal": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "10.0.2",
           "Microsoft.Extensions.Http.Polly": "10.0.2",
           "Npgsql": "10.0.1",
@@ -286,6 +287,17 @@
             "fileVersion": "8.0.1.50722"
           }
         }
+      },
+      "Libs.Core.Internal/1.0.0": {
+        "dependencies": {
+          "Grpc.AspNetCore": "2.76.0"
+        },
+        "runtime": {
+          "Libs.Core.Internal.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -476,6 +488,11 @@
       "sha512": "sha512-GJw3bYkWpOgvN3tJo5X4lYUeIFA2HD293FPUhKmp7qxS+g5ywAb34Dnd3cDAFLkcMohy5XTpoaZ4uAHuw0uSPQ==",
       "path": "system.identitymodel.tokens.jwt/8.0.1",
       "hashPath": "system.identitymodel.tokens.jwt.8.0.1.nupkg.sha512"
+    },
+    "Libs.Core.Internal/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

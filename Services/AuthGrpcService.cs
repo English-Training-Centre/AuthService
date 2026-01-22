@@ -1,6 +1,7 @@
-using AuthService.src.Application.DTOs.Commands;
+using AuthService.src.Application.DTOs.Requests;
 using AuthService.src.Application.Interfaces;
 using Grpc.Core;
+using Libs.Core.Internal.src.DTOs.Requests;
 
 namespace AuthService.Services;
 

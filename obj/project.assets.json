@@ -418,6 +418,19 @@
             "related": ".xml"
           }
         }
+      },
+      "Libs.Core.Internal/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Grpc.AspNetCore": "2.76.0"
+        },
+        "compile": {
+          "bin/placeholder/Libs.Core.Internal.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Libs.Core.Internal.dll": {}
+        }
       }
     }
   },
@@ -1027,6 +1040,11 @@
         "system.identitymodel.tokens.jwt.8.0.1.nupkg.sha512",
         "system.identitymodel.tokens.jwt.nuspec"
       ]
+    },
+    "Libs.Core.Internal/1.0.0": {
+      "type": "project",
+      "path": "../Libs.Core.Internal/Libs.Core.Internal.csproj",
+      "msbuildProject": "../Libs.Core.Internal/Libs.Core.Internal.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -1036,6 +1054,7 @@
       "FluentValidation.AspNetCore >= 11.3.1",
       "FluentValidation.DependencyInjectionExtensions >= 12.1.1",
       "Grpc.AspNetCore >= 2.76.0",
+      "Libs.Core.Internal >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 10.0.2",
       "Microsoft.Extensions.Http.Polly >= 10.0.2",
       "Npgsql >= 10.0.1",
@@ -1066,7 +1085,11 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/home/ramadan/Documents/Projects/EnglishTrainingCenter/v3.0.2/etc-backend/Libs.Core.Internal/Libs.Core.Internal.csproj": {
+              "projectPath": "/home/ramadan/Documents/Projects/EnglishTrainingCenter/v3.0.2/etc-backend/Libs.Core.Internal/Libs.Core.Internal.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

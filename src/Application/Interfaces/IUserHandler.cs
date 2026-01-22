@@ -1,5 +1,6 @@
-using AuthService.src.Application.DTOs.Commands;
-using AuthService.src.Application.DTOs.Queries;
+using AuthService.src.Application.DTOs.Requests;
+using AuthService.src.Application.DTOs.Responses;
+using Libs.Core.Internal.src.DTOs.Requests;
 
 namespace AuthService.src.Application.Interfaces;
 

@@ -1,5 +1,5 @@
-using AuthService.src.Application.DTOs.Commands;
 using FluentValidation;
+using Libs.Core.Internal.src.DTOs.Requests;
 
 namespace AuthService.src.Application.Validators;
 
