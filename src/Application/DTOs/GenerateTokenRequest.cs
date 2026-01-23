@@ -1,4 +1,4 @@
-namespace AuthService.src.Application.DTOs.Requests;
+namespace AuthService.src.Application.DTOs;
 
 public sealed record GenerateTokenRequest
 {

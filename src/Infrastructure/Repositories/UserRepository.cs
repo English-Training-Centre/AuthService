@@ -1,6 +1,6 @@
-using AuthService.src.Application.DTOs.Requests;
-using AuthService.src.Application.DTOs.Responses;
 using AuthService.src.Application.Interfaces;
+using Libs.Core.Public.src.DTOs.Requests;
+using Libs.Core.Public.src.DTOs.Responses;
 using Npgsql;
 
 namespace AuthService.src.Infrastructure.Repositories;
@@ -10,7 +10,7 @@ public sealed class UserRepository(IPostgresDB db, ILogger<UserRepository> logge
     private readonly IPostgresDB _db = db;
     private readonly ILogger<UserRepository> _logger = logger;
 
-    public async Task<GetTokenResponse?> GetValidRefreshToken(string refreshToken, CancellationToken ct)
+    public async Task<RefreshTokenResponse?> GetValidRefreshTokenAsync(string refreshToken, CancellationToken ct)
     {
         const string sql = @"SELECT user_id AS UserId
         FROM tbRefreshToken 
@@ -21,7 +21,7 @@ public sealed class UserRepository(IPostgresDB db, ILogger<UserRepository> logge
 
         try
         {
-            return await _db.QueryFirstOrDefaultAsync<GetTokenResponse?>(sql, new { RefreshToken = refreshToken }, ct);
+            return await _db.QueryFirstOrDefaultAsync<RefreshTokenResponse?>(sql, new { RefreshToken = refreshToken }, ct);
         }
         catch (PostgresException pgEx)
         {
@@ -35,7 +35,7 @@ public sealed class UserRepository(IPostgresDB db, ILogger<UserRepository> logge
         }
     }
 
-    public async Task<int> RevokeRefreshToken(string refreshToken, CancellationToken ct)
+    public async Task<int> RevokeRefreshTokenAsync(string refreshToken, CancellationToken ct)
     {
         try
         {
@@ -59,7 +59,7 @@ public sealed class UserRepository(IPostgresDB db, ILogger<UserRepository> logge
         }
     }
 
-    public async Task<int> SaveRefreshToken(RefreshTokenRequest request, CancellationToken ct)
+    public async Task<int> SaveRefreshTokenAsync(RefreshTokenRequest request, CancellationToken ct)
     {
         try
         {

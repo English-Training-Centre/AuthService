@@ -10,6 +10,7 @@ using FluentValidation.AspNetCore;
 using Grpc.Net.Compression;
 using Libs.Core.Internal.Protos.UserService;
 using Libs.Core.Internal.src.Interfaces;
+using Libs.Core.Public.src.Interfaces;
 using Npgsql;
 using Polly;
 
@@ -39,7 +40,8 @@ public static class MiddlewareConfig
 
             services.AddScoped<IPostgresDB, PostgresDB>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IUserHandler, UserHandler>();
+            
+            services.AddScoped<IAuthGrpcService, UserHandler>();
             services.AddScoped<IUserAuthGrpcService, UserGrpcServiceClient>();
 
             services.AddGrpcClient<UsersAuthGrpc.UsersAuthGrpcClient>(op =>

@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\auth.proto" GrpcServices="Server" />
     <ProjectReference Include="..\Libs.Core.Internal\Libs.Core.Internal.csproj" />
+    <ProjectReference Include="..\Libs.Core.Public\Libs.Core.Public.csproj" />
   </ItemGroup>
 
   <ItemGroup>

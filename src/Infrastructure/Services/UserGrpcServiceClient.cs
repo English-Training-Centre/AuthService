@@ -1,8 +1,8 @@
 using Grpc.Core;
 using Libs.Core.Internal.Protos.UserService;
-using Libs.Core.Internal.src.DTOs.Requests;
 using Libs.Core.Internal.src.DTOs.Responses;
 using Libs.Core.Internal.src.Interfaces;
+using Libs.Core.Shared.src.DTOs.Requests;
 
 namespace AuthService.src.Infrastructure.Services;
 

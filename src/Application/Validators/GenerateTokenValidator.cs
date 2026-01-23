@@ -1,4 +1,4 @@
-using AuthService.src.Application.DTOs.Requests;
+using AuthService.src.Application.DTOs;
 using FluentValidation;
 
 namespace AuthService.src.Application.Validators;

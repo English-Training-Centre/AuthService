@@ -1,11 +1,11 @@
-using AuthService.src.Application.DTOs.Requests;
-using AuthService.src.Application.DTOs.Responses;
+using Libs.Core.Public.src.DTOs.Requests;
+using Libs.Core.Public.src.DTOs.Responses;
 
 namespace AuthService.src.Application.Interfaces;
 
 public interface IUserRepository
 {
-    Task<GetTokenResponse?> GetValidRefreshToken(string refreshToken, CancellationToken ct);
-    Task<int> RevokeRefreshToken(string refreshToken, CancellationToken ct);
-    Task<int> SaveRefreshToken(RefreshTokenRequest request, CancellationToken ct);
+    Task<RefreshTokenResponse?> GetValidRefreshTokenAsync(string refreshToken, CancellationToken ct);
+    Task<int> RevokeRefreshTokenAsync(string refreshToken, CancellationToken ct);
+    Task<int> SaveRefreshTokenAsync(RefreshTokenRequest request, CancellationToken ct);
 }

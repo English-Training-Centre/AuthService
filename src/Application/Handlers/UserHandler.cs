@@ -2,23 +2,25 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using AuthService.src.Application.DTOs.Requests;
-using AuthService.src.Application.DTOs.Responses;
+using AuthService.src.Application.DTOs;
 using AuthService.src.Application.Interfaces;
-using Libs.Core.Internal.src.DTOs.Requests;
 using Libs.Core.Internal.src.Interfaces;
+using Libs.Core.Public.src.DTOs.Requests;
+using Libs.Core.Public.src.DTOs.Responses;
+using Libs.Core.Public.src.Interfaces;
+using Libs.Core.Shared.src.DTOs.Requests;
 using Microsoft.IdentityModel.Tokens;
 
 namespace AuthService.src.Application.Handlers;
 
-public sealed class UserHandler(IUserRepository userRepository, IUserAuthGrpcService userGrpcServiceClient, ILogger<UserHandler> logger, IConfiguration config) : IUserHandler
+public sealed class UserHandler(IUserRepository userRepository, IUserAuthGrpcService userGrpcServiceClient, ILogger<UserHandler> logger, IConfiguration config) : IAuthGrpcService
 {
     private readonly IUserRepository _userRepository = userRepository;
     private readonly IUserAuthGrpcService _userGrpcServiceClient = userGrpcServiceClient;
     private readonly ILogger<UserHandler> _logger = logger;
     private readonly IConfiguration _config = config;
 
-    public async Task<AuthResponse> SignIn(UserAuthRequest request, CancellationToken ct)
+    public async Task<AuthResponse> SignInAsync(UserAuthRequest request, CancellationToken ct)
     {
         try
         {
@@ -60,7 +62,7 @@ public sealed class UserHandler(IUserRepository userRepository, IUserAuthGrpcSer
         }
     }
 
-    public async Task<AuthResponse> RefreshToken(RefreshTokenRequest request, CancellationToken ct)
+    public async Task<AuthResponse> RefreshTokenAsync(RefreshTokenRequest request, CancellationToken ct)
     {
         try
         {
@@ -78,7 +80,7 @@ public sealed class UserHandler(IUserRepository userRepository, IUserAuthGrpcSer
             var newAccessToken = GenerateAccessToken(tokenRequest);
             var newRefreshToken = await GenerateRefreshToken(tokenRequest.UserId, ct);
 
-            await RevokeRefreshToken(request.RefreshToken, ct);
+            await RevokeRefreshTokenAsync(request.RefreshToken, ct);
 
             return new AuthResponse
             {
@@ -94,7 +96,7 @@ public sealed class UserHandler(IUserRepository userRepository, IUserAuthGrpcSer
         }
     }
 
-    public async Task<CheckSessionResponse> CheckSession(Guid userId, CancellationToken ct)
+    public async Task<CheckSessionResponse> CheckSessionAsync(Guid userId, CancellationToken ct)
     {
         try
         {
@@ -125,7 +127,21 @@ public sealed class UserHandler(IUserRepository userRepository, IUserAuthGrpcSer
         }
     }
 
-    public string GenerateAccessToken(GenerateTokenRequest request)
+    public async Task<RefreshTokenResponse?> GetValidRefreshTokenAsync(string refreshToken, CancellationToken ct)
+    {
+        if (refreshToken is null) return null;
+
+        return await _userRepository.GetValidRefreshTokenAsync(refreshToken, ct);
+    }
+
+    public async Task RevokeRefreshTokenAsync(string refreshToken, CancellationToken ct)
+    {
+        if (refreshToken is null) return;
+
+        await _userRepository.RevokeRefreshTokenAsync(refreshToken, ct);
+    }
+
+    private string GenerateAccessToken(GenerateTokenRequest request)
     {
         try
         {
@@ -159,7 +175,7 @@ public sealed class UserHandler(IUserRepository userRepository, IUserAuthGrpcSer
         }
     }
 
-    public async Task<string> GenerateRefreshToken(Guid userId, CancellationToken ct)
+    private async Task<string> GenerateRefreshToken(Guid userId, CancellationToken ct)
     {
         try
         {
@@ -172,7 +188,7 @@ public sealed class UserHandler(IUserRepository userRepository, IUserAuthGrpcSer
                 refreshToken
             );
 
-            await _userRepository.SaveRefreshToken(newRefreshToken, ct);
+            await _userRepository.SaveRefreshTokenAsync(newRefreshToken, ct);
             return refreshToken;
         }
         catch (Exception ex)
@@ -180,19 +196,5 @@ public sealed class UserHandler(IUserRepository userRepository, IUserAuthGrpcSer
             _logger.LogError(ex, " - Unexpected GenerateRefreshToken Error");
             return "";
         }
-    }
-
-    public async Task<GetTokenResponse?> GetValidRefreshToken(string refreshToken, CancellationToken ct)
-    {
-        if (refreshToken is null) return null;
-
-        return await _userRepository.GetValidRefreshToken(refreshToken, ct);
-    }
-
-    public async Task RevokeRefreshToken(string refreshToken, CancellationToken ct)
-    {
-        if (refreshToken is null) return;
-
-        await _userRepository.RevokeRefreshToken(refreshToken, ct);
     }
 }

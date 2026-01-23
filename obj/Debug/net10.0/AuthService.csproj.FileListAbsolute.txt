@@ -32,7 +32,11 @@
 /home/ramadan/Documents/Projects/EnglishTrainingCenter/v3.0.2/etc-backend/AuthService/bin/Debug/net10.0/Polly.Extensions.Http.dll
 /home/ramadan/Documents/Projects/EnglishTrainingCenter/v3.0.2/etc-backend/AuthService/bin/Debug/net10.0/System.IdentityModel.Tokens.Jwt.dll
 /home/ramadan/Documents/Projects/EnglishTrainingCenter/v3.0.2/etc-backend/AuthService/bin/Debug/net10.0/Libs.Core.Internal.dll
+/home/ramadan/Documents/Projects/EnglishTrainingCenter/v3.0.2/etc-backend/AuthService/bin/Debug/net10.0/Libs.Core.Public.dll
+/home/ramadan/Documents/Projects/EnglishTrainingCenter/v3.0.2/etc-backend/AuthService/bin/Debug/net10.0/Libs.Core.Shared.dll
 /home/ramadan/Documents/Projects/EnglishTrainingCenter/v3.0.2/etc-backend/AuthService/bin/Debug/net10.0/Libs.Core.Internal.pdb
+/home/ramadan/Documents/Projects/EnglishTrainingCenter/v3.0.2/etc-backend/AuthService/bin/Debug/net10.0/Libs.Core.Public.pdb
+/home/ramadan/Documents/Projects/EnglishTrainingCenter/v3.0.2/etc-backend/AuthService/bin/Debug/net10.0/Libs.Core.Shared.pdb
 /home/ramadan/Documents/Projects/EnglishTrainingCenter/v3.0.2/etc-backend/AuthService/obj/Debug/net10.0/AuthService.csproj.AssemblyReference.cache
 /home/ramadan/Documents/Projects/EnglishTrainingCenter/v3.0.2/etc-backend/AuthService/obj/Debug/net10.0/rpswa.dswa.cache.json
 /home/ramadan/Documents/Projects/EnglishTrainingCenter/v3.0.2/etc-backend/AuthService/obj/Debug/net10.0/AuthService.GeneratedMSBuildEditorConfig.editorconfig

@@ -423,13 +423,38 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "Grpc.AspNetCore": "2.76.0"
+          "Grpc.AspNetCore": "2.76.0",
+          "Libs.Core.Shared": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Libs.Core.Internal.dll": {}
         },
         "runtime": {
           "bin/placeholder/Libs.Core.Internal.dll": {}
+        }
+      },
+      "Libs.Core.Public/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Grpc.AspNetCore": "2.76.0",
+          "Libs.Core.Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Libs.Core.Public.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Libs.Core.Public.dll": {}
+        }
+      },
+      "Libs.Core.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "compile": {
+          "bin/placeholder/Libs.Core.Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Libs.Core.Shared.dll": {}
         }
       }
     }
@@ -1045,6 +1070,16 @@
       "type": "project",
       "path": "../Libs.Core.Internal/Libs.Core.Internal.csproj",
       "msbuildProject": "../Libs.Core.Internal/Libs.Core.Internal.csproj"
+    },
+    "Libs.Core.Public/1.0.0": {
+      "type": "project",
+      "path": "../Libs.Core.Public/Libs.Core.Public.csproj",
+      "msbuildProject": "../Libs.Core.Public/Libs.Core.Public.csproj"
+    },
+    "Libs.Core.Shared/1.0.0": {
+      "type": "project",
+      "path": "../Libs.Core.Shared/Libs.Core.Shared.csproj",
+      "msbuildProject": "../Libs.Core.Shared/Libs.Core.Shared.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -1055,6 +1090,7 @@
       "FluentValidation.DependencyInjectionExtensions >= 12.1.1",
       "Grpc.AspNetCore >= 2.76.0",
       "Libs.Core.Internal >= 1.0.0",
+      "Libs.Core.Public >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 10.0.2",
       "Microsoft.Extensions.Http.Polly >= 10.0.2",
       "Npgsql >= 10.0.1",
@@ -1088,6 +1124,9 @@
           "projectReferences": {
             "/home/ramadan/Documents/Projects/EnglishTrainingCenter/v3.0.2/etc-backend/Libs.Core.Internal/Libs.Core.Internal.csproj": {
               "projectPath": "/home/ramadan/Documents/Projects/EnglishTrainingCenter/v3.0.2/etc-backend/Libs.Core.Internal/Libs.Core.Internal.csproj"
+            },
+            "/home/ramadan/Documents/Projects/EnglishTrainingCenter/v3.0.2/etc-backend/Libs.Core.Public/Libs.Core.Public.csproj": {
+              "projectPath": "/home/ramadan/Documents/Projects/EnglishTrainingCenter/v3.0.2/etc-backend/Libs.Core.Public/Libs.Core.Public.csproj"
             }
           }
         }

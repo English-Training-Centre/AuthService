@@ -1,13 +1,14 @@
-using AuthService.src.Application.DTOs.Requests;
-using AuthService.src.Application.Interfaces;
 using Grpc.Core;
-using Libs.Core.Internal.src.DTOs.Requests;
+using Libs.Core.Public.Protos.AuthService;
+using Libs.Core.Public.src.DTOs.Requests;
+using Libs.Core.Public.src.Interfaces;
+using Libs.Core.Shared.src.DTOs.Requests;
 
 namespace AuthService.Services;
 
-public sealed class AuthGrpcService(IUserHandler userHandler, ILogger<AuthGrpcService> logger) : AuthGrpc.AuthGrpcBase
+public sealed class AuthGrpcService(IAuthGrpcService serviceAuth, ILogger<AuthGrpcService> logger) : AuthGrpc.AuthGrpcBase
 {
-    private readonly IUserHandler _userHandler = userHandler;
+    private readonly IAuthGrpcService _serviceAuth = serviceAuth;
     private readonly ILogger<AuthGrpcService> _logger = logger;
 
     public override async Task<GrpcAuthResponse> SignIn(GrpcAuthRequest request, ServerCallContext context)
@@ -20,7 +21,7 @@ public sealed class AuthGrpcService(IUserHandler userHandler, ILogger<AuthGrpcSe
                 request.Password
             );
 
-            var result = await _userHandler.SignIn(parameter, context.CancellationToken);
+            var result = await _serviceAuth.SignInAsync(parameter, context.CancellationToken);
 
             var protoResponse = new GrpcAuthResponse
             {
@@ -55,7 +56,7 @@ public sealed class AuthGrpcService(IUserHandler userHandler, ILogger<AuthGrpcSe
                 request.RefreshToken
             );
 
-            var result = await _userHandler.RefreshToken(parameter, context.CancellationToken);
+            var result = await _serviceAuth.RefreshTokenAsync(parameter, context.CancellationToken);
 
             var protoResponse = new GrpcAuthResponse
             {
@@ -77,7 +78,7 @@ public sealed class AuthGrpcService(IUserHandler userHandler, ILogger<AuthGrpcSe
     {
         try
         {
-            var result = await _userHandler.GetValidRefreshToken(request.RefreshToken, context.CancellationToken) ?? throw new RpcException(new Status(StatusCode.InvalidArgument, "token is null"));
+            var result = await _serviceAuth.GetValidRefreshTokenAsync(request.RefreshToken, context.CancellationToken) ?? throw new RpcException(new Status(StatusCode.InvalidArgument, "token is null"));
 
             var protoResponse = new GrpcGetTokenResponse
             {
@@ -97,7 +98,7 @@ public sealed class AuthGrpcService(IUserHandler userHandler, ILogger<AuthGrpcSe
     {
         try
         {
-            await _userHandler.RevokeRefreshToken(request.RefreshToken, context.CancellationToken);
+            await _serviceAuth.RevokeRefreshTokenAsync(request.RefreshToken, context.CancellationToken);
 
             return new Google.Protobuf.WellKnownTypes.Empty();
         }
@@ -119,7 +120,7 @@ public sealed class AuthGrpcService(IUserHandler userHandler, ILogger<AuthGrpcSe
                 );
             }
 
-            var result = await _userHandler.CheckSession(userId, context.CancellationToken);
+            var result = await _serviceAuth.CheckSessionAsync(userId, context.CancellationToken);
 
             var protoResponse = new GrpcSessionResponse
             {
